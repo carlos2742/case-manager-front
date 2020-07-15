@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center"><h2>Clients</h2></div>
+<div>
+  <button mat-raised-button (click)="openCreateDialog()">Create</button>
+</div>
+<div class="mt-3">
+  <app-table
+    [dataSource]="data"
+    [displayedColumns]="displayedColumns"
+    (updateEvent)="openUpdateDialog($event)"
+    (deleteEvent)="openDeleteDialog($event)"
+  ></app-table>
+</div>
+
+<ng-template #template>
+  <div mat-dialog-title>{{dialogTitle}}</div>
+  <div mat-dialog-content>
+    <ng-container *ngIf="dialogActionType === DIALOG_ACTION_TYPE.REMOVE" [ngTemplateOutlet]="removeTemplate"></ng-container>
+    <ng-container *ngIf="dialogActionType !== DIALOG_ACTION_TYPE.REMOVE" [ngTemplateOutlet]="formTemplate"></ng-container>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-button [mat-dialog-close]="true" (click)="dialogMainAction()">{{dialogMainActionName}}</button>
+  </div>
+</ng-template>
+
+<ng-template #removeTemplate>
+  <div>Esta seguro que desea eliminar el cliente?</div>
+</ng-template>
+<ng-template #formTemplate>
+  <div [formGroup]="form">
+    <mat-form-field style="width: 100%;">
+      <mat-label>First Name</mat-label>
+      <input matInput placeholder="Jhon" value="" formControlName="first_name">
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="jhon@gmail.com" value="" formControlName="email">
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Phone Number</mat-label>
+      <input matInput placeholder="777777777" value="" formControlName="phone_number">
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Emergency Contact</mat-label>
+      <input matInput placeholder="777777777" value="" formControlName="emergency_contact">
+    </mat-form-field>
+  </div>
+</ng-template>
