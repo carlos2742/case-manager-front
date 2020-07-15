@@ -1,0 +1,18 @@
+<mat-drawer-container class="h-100" >
+  <mat-drawer mode="side" opened="{{this.open}}">
+    <ul>
+      <li routerLink="/admin/clients">clients</li>
+      <li routerLink="/admin/users">users</li>
+    </ul>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="p-5 ml-5 mr-5">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+<div (click)="toggle()">toggle</div>
+
+
+

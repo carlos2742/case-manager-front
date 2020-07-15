@@ -30,3 +30,6 @@ $case-manager-front-theme: mat-light-theme($case-manager-front-primary, $case-ma
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
