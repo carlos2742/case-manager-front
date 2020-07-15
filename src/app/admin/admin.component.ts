@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-admin',
@@ -8,11 +9,19 @@ import { Component, OnInit } from '@angular/core';
 export class AdminComponent implements OnInit {
 
   open: boolean;
-  constructor() {
+  constructor(private translate: TranslateService) {
     this.open = false;
   }
 
   ngOnInit(): void {
+    this.initializeLanguage();
+  }
+
+  public initializeLanguage() {
+    const lang = this.translate.getBrowserLang();
+    if(['es','en'].indexOf(lang)!== -1){
+      this.translate.use(lang);
+    }
   }
 
   toggle(){

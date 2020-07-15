@@ -37,7 +37,7 @@ export class ClientComponent implements OnInit {
 
   public dialogTitle: String;
   public dialogActionType: DIALOG_ACTION_TYPE;
-  public dialogMainActionName: String;
+  public dialogMainActionName: string;
   public dialogMainAction: Function;
 
   constructor(private client: ClientService, public dialog: MatDialog, private formBuilder: FormBuilder) {
@@ -53,7 +53,7 @@ export class ClientComponent implements OnInit {
 
   openCreateDialog(){
     this.dialogTitle = 'Create Client';
-    this.dialogMainActionName = 'Create';
+    this.dialogMainActionName = 'ACTIONS.CREATE';
     this.dialogActionType = DIALOG_ACTION_TYPE.CREATE;
     this.dialogMainAction = () => this.createClient();
     this.openDialog();
@@ -61,7 +61,7 @@ export class ClientComponent implements OnInit {
 
   openUpdateDialog(object){
     this.dialogTitle = 'Update Client';
-    this.dialogMainActionName = 'Update';
+    this.dialogMainActionName = 'ACTIONS.UPDATE';
     this.dialogActionType = DIALOG_ACTION_TYPE.EDIT;
     this.updateForm(object);
     this.dialogMainAction = () => this.updateClient(object);
@@ -70,7 +70,7 @@ export class ClientComponent implements OnInit {
 
   openDeleteDialog(id){
     this.dialogTitle = 'Delete Client';
-    this.dialogMainActionName = 'Delete';
+    this.dialogMainActionName = 'ACTIONS.DELETE';
     this.dialogActionType = DIALOG_ACTION_TYPE.REMOVE;
     this.dialogMainAction = () => this.deleteClient(id);
     this.openDialog();

@@ -7,6 +7,7 @@ import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild
 })
 export class TableComponent implements OnInit {
 
+  @Input() entity: String;
   @Input() dataSource;
   @Input() displayedColumns:Array<any>;
   @Output() updateEvent: EventEmitter<object>;
@@ -36,6 +37,10 @@ export class TableComponent implements OnInit {
 
   get displayColumnFilter(){
     return this.displayedColumns.length > 0 ? this.displayedColumns.filter(item => item !== 'actions') : [];
+  }
+
+  getLanguageKeyColumn(column){
+    return `${this.entity.toUpperCase()}.ATTR.${column.toUpperCase()}`;
   }
 
 }
