@@ -33,7 +33,7 @@ export class UserComponent implements OnInit {
 
   public dialogTitle: String;
   public dialogActionType: DIALOG_ACTION_TYPE;
-  public dialogMainActionName: String;
+                      public dialogMainActionName: string;
   public dialogMainAction: Function;
 
   constructor(private user: UserService, public dialog: MatDialog, private formBuilder: FormBuilder) {
@@ -50,7 +50,7 @@ export class UserComponent implements OnInit {
 
   openCreateDialog(){
     this.dialogTitle = 'Create User';
-    this.dialogMainActionName = 'Create';
+    this.dialogMainActionName = 'ACTIONS.CREATE';
     this.dialogActionType = DIALOG_ACTION_TYPE.CREATE;
     this.dialogMainAction = () => this.createUser();
     this.openDialog();
@@ -58,7 +58,7 @@ export class UserComponent implements OnInit {
 
   openUpdateDialog(object){
     this.dialogTitle = 'Update User';
-    this.dialogMainActionName = 'Update';
+    this.dialogMainActionName = 'ACTIONS.UPDATE';
     this.dialogActionType = DIALOG_ACTION_TYPE.EDIT;
     this.updateForm(object);
     this.dialogMainAction = () => this.updateUser(object);
@@ -67,7 +67,7 @@ export class UserComponent implements OnInit {
 
   openDeleteDialog(id){
     this.dialogTitle = 'Delete Users';
-    this.dialogMainActionName = 'Delete';
+    this.dialogMainActionName = 'ACTIONS.DELETE';
     this.dialogActionType = DIALOG_ACTION_TYPE.REMOVE;
     this.dialogMainAction = () => this.deleteUser(id);
     this.openDialog();

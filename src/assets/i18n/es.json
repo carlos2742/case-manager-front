@@ -1,0 +1,37 @@
+{
+  "CLIENT":{
+    "LABEL": {
+      "SINGULAR": "Cliente",
+      "PLURAL": "Clientes"
+    },
+    "ATTR": {
+      "FIRSTNAME": "Nombre",
+      "LASTNAME": "Apellidos",
+      "EMAIL": "Correo",
+      "ADDRESS": "Dirección",
+      "BIRTHDAY": "Fecha de Nacimiento",
+      "PHONENUMBER": "Teléfono",
+      "EMERGENCYCONTACT": "Contacto de Emergencia",
+      "SSN": "No. Seguridad Social",
+      "ARN": "No. Registro Extranjero"
+    }
+  },
+  "USER": {
+    "LABEL": {
+      "SINGULAR": "Usuario",
+      "PLURAL": "Usuarios"
+    },
+    "ATTR": {
+      "NAME": "Nombre",
+      "EMAIL": "Correo",
+      "ROL": "Rol"
+    }
+  },
+  "ACTIONS": {
+    "LABEL": "Opciones",
+    "CREATE": "Crear",
+    "UPDATE": "Editar",
+    "DELETE": "Eliminar",
+    "CLOSE": "Cerrar"
+  }
+}
