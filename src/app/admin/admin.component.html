@@ -1,9 +1,19 @@
 <mat-drawer-container class="h-100" >
-  <mat-drawer mode="side" opened="{{this.open}}">
-    <ul>
-      <li routerLink="/admin/clients">clients</li>
-      <li routerLink="/admin/users">users</li>
-    </ul>
+  <mat-drawer mode="side" opened="{{open}}">
+    <div class="pl-3 pr-3">
+      <div>
+        <button mat-button routerLink="clients">
+          <mat-icon>group</mat-icon>
+          <span class="ml-5">{{'CLIENT.LABEL.PLURAL' | translate}}</span>
+        </button>
+      </div>
+      <div>
+        <button mat-button routerLink="users">
+          <mat-icon>business</mat-icon>
+          <span class="ml-5">{{'USER.LABEL.PLURAL' | translate}}</span>
+        </button>
+      </div>
+    </div>
   </mat-drawer>
   <mat-drawer-content>
     <div class="p-5 ml-5 mr-5">
@@ -11,8 +21,3 @@
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
-
-<div (click)="toggle()">toggle</div>
-
-
-

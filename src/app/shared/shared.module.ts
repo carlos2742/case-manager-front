@@ -22,7 +22,6 @@ export function createTranslateLoader(http: HttpClient) {
   imports: [
     CommonModule,
     ReactiveFormsModule,
-
     MatTableModule,
     MatButtonModule,
     MatIconModule,

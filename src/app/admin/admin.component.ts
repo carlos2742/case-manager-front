@@ -10,7 +10,7 @@ export class AdminComponent implements OnInit {
 
   open: boolean;
   constructor(private translate: TranslateService) {
-    this.open = false;
+    this.open = true;
   }
 
   ngOnInit(): void {

@@ -7,9 +7,10 @@
   (click)="openCreateDialog()">
   <mat-icon>add</mat-icon>
 </button>
+
 <div class="mt-3">
   <app-table
-    [dataSource]="data"
+    [dataSource]="data$ | async"
     [entity]="'CLIENT'"
     [displayedColumns]="displayedColumns"
     (updateEvent)="openUpdateDialog($event)"

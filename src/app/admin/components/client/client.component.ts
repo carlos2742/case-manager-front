@@ -2,6 +2,10 @@ import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ClientService} from "../../services/client/client.service";
+import {Store} from "@ngrx/store";
+import * as AdminStore from '../../store';
+import {Observable} from "rxjs";
+
 
 export enum DIALOG_ACTION_TYPE{
   CREATE,
@@ -18,18 +22,8 @@ export class ClientComponent implements OnInit {
 
   @ViewChild('template',{static: false})
   template: TemplateRef<any>;
-  data: any;
-  displayedColumns: string[] = [
-    'firstName',
-    'lastName',
-    'email',
-    'birthday',
-    'address',
-    'phoneNumber',
-    'emergencyContact',
-    'ssn',
-    'arn',
-    'actions'];
+  data$: Observable<any>;
+  displayedColumns: Array<string>;
 
   form: FormGroup;
 
@@ -40,14 +34,24 @@ export class ClientComponent implements OnInit {
   public dialogMainActionName: string;
   public dialogMainAction: Function;
 
-  constructor(private client: ClientService, public dialog: MatDialog, private formBuilder: FormBuilder) {
+  constructor(private store: Store<AdminStore.AdminState>, private client: ClientService, public dialog: MatDialog, private formBuilder: FormBuilder) {
     this.DIALOG_ACTION_TYPE = DIALOG_ACTION_TYPE;
-    this.client.all.subscribe(response => {
-      this.data = response;
-    });
+    this.displayedColumns = [
+      'firstName',
+      'lastName',
+      'email',
+      'birthday',
+      'address',
+      'phoneNumber',
+      'emergencyContact',
+      'ssn',
+      'arn',
+      'actions'];
+    this.data$ = this.store.select(AdminStore.allClients);
   }
 
   ngOnInit(): void {
+    this.store.dispatch(new AdminStore.LoadClients({}));
     this.initializeForm();
   }
 
@@ -78,27 +82,17 @@ export class ClientComponent implements OnInit {
 
   createClient(){
     const payload = this.form.value;
-    this.client.create(payload).subscribe(response =>{
-      const element = response;
-      this.data = this.data.concat([element]);
-    });
+    this.store.dispatch(new AdminStore.CreateClient(payload));
   }
 
   deleteClient(id){
     const payload = id;
-    this.client.delete(payload).subscribe(response =>{
-      const element = response;
-      this.data = this.data.filter(item => item.id !== element.id);
-    });
+    this.store.dispatch(new AdminStore.DeleteClient(payload));
   }
 
   updateClient(element){
     const payload = Object.assign({id: element.id}, this.form.value);
-    this.client.update(payload).subscribe( response =>{
-      const element = response;
-      const index = this.data.findIndex(item => item.id === element.id);
-      this.data.splice(index,1,element);
-    });
+    this.store.dispatch(new AdminStore.UpdateClient(payload));
   }
 
   private openDialog(): void {

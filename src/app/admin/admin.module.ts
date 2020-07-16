@@ -11,7 +11,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {ClientService} from "./services/client/client.service";
 import { UserComponent } from './components/user/user.component';
-
+import {StoreModule} from "@ngrx/store";
+import {EffectsModule} from "@ngrx/effects";
+import { reducers, effects } from './store';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { UserComponent } from './components/user/user.component';
     MatSidenavModule,
     MatDialogModule,
     MatInputModule,
+    StoreModule.forFeature('admin', reducers),
+    EffectsModule.forFeature(effects)
   ],
   providers:[
     ClientService
