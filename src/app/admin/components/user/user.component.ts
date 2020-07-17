@@ -1,17 +1,12 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {UserService} from "../../services/user/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DIALOG_ACTION_TYPE} from "../client/client.component";
 import * as AdminStore from '../../store';
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
+import {USER_ROLES} from "../../models/admin.models";
 
-enum USER_ROLES{
-  DEVELOPER,
-  ADMIN,
-  COLLABORATOR
-}
 
 @Component({
   selector: 'app-user',
@@ -32,10 +27,10 @@ export class UserComponent implements OnInit {
 
   public dialogTitle: String;
   public dialogActionType: DIALOG_ACTION_TYPE;
-                      public dialogMainActionName: string;
+  public dialogMainActionName: string;
   public dialogMainAction: Function;
 
-  constructor(private store: Store<AdminStore.AdminState>, private user: UserService, public dialog: MatDialog, private formBuilder: FormBuilder) {
+  constructor(private store: Store<AdminStore.AdminState>, public dialog: MatDialog, private formBuilder: FormBuilder) {
     this.DIALOG_ACTION_TYPE = DIALOG_ACTION_TYPE;
     this.USER_ROLES = USER_ROLES;
     this.displayedColumns = [

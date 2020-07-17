@@ -29,13 +29,16 @@ export class AuthenticationService extends BaseService{
               user {
                 id
                 name
+                rol
                 authenticationToken
               }
               success
               errors
             }
           }`;
-    return this.graphql.mutate(this.mutation,payload).pipe(this.extractMutationResponseData(MUTATION.SIGN_IN, ENTITY.USER));
+    return this.graphql.mutate(this.mutation,payload).pipe(
+      this.extractMutationResponseData(MUTATION.SIGN_IN, ENTITY.USER),
+      tap(response => localStorage.setItem('AUTH_TOKEN',response['authenticationToken'])));
   }
 
   public signOut(){
@@ -53,6 +56,7 @@ export class AuthenticationService extends BaseService{
     return this.graphql.mutate(this.mutation).pipe(
       this.extractMutationResponseData(MUTATION.SIGN_OUT, ENTITY.USER),
       tap(()=>{
+        localStorage.removeItem('AUTH_TOKEN');
         this.graphql.clearStore();
       }));
   }

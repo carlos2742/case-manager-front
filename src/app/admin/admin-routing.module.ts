@@ -4,6 +4,8 @@ import {AdminComponent} from "./admin.component";
 import {LoginComponent} from "./components/login/login.component";
 import {ClientComponent} from "./components/client/client.component";
 import {UserComponent} from "./components/user/user.component";
+import {GuardService} from "./services/auth/guard.service";
+import {USER_ROLES} from "./models/admin.models";
 
 
 const routes: Routes = [
@@ -11,10 +13,23 @@ const routes: Routes = [
     path: '',
     component: AdminComponent,
     children: [
-      { path: '', redirectTo: 'clients'},
-      {path: 'login', component: LoginComponent},
-      { path: 'clients', component: ClientComponent},
-      { path: 'users', component: UserComponent},
+      { path: 'login', component: LoginComponent},
+      {
+        path: 'clients',
+        component: ClientComponent,
+        canActivate: [GuardService],
+        data: {
+          roles: [USER_ROLES.ADMIN, USER_ROLES.DEVELOPER, USER_ROLES.COLLABORATOR]
+        }
+      },
+      {
+        path: 'users',
+        component: UserComponent,
+        canActivate: [GuardService],
+        data: {
+          roles: [USER_ROLES.ADMIN, USER_ROLES.DEVELOPER]
+        }
+      },
       { path: '**', redirectTo: '404'}
     ]
   }

@@ -32,6 +32,8 @@
     "CREATE": "Create",
     "UPDATE": "Update",
     "DELETE": "Delete",
-    "CLOSE": "Close"
+    "CLOSE": "Close",
+    "SIGN_IN": "Sign In",
+    "SIGN_OUT": "Sign Out"
   }
 }

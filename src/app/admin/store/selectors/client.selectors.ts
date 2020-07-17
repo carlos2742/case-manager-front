@@ -3,7 +3,7 @@ import * as fromFeature from '../reducers';
 
 import {createSelector} from '@ngrx/store';
 
-const getAdminState = createSelector(fromFeature.getAdminState, (state: fromFeature.AdminState) => state.clients);
+const getAdminState = createSelector(fromFeature.getAdminState, (state: fromFeature.AdminState) => state.client);
 
 export const allClients = createSelector(getAdminState, fromClient.getClientItems);
 export const isClientsLoading = createSelector(getAdminState, fromClient.getClientsLoading);

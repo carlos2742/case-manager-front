@@ -3,7 +3,7 @@ import * as fromFeature from '../reducers';
 
 import {createSelector} from '@ngrx/store';
 
-const getAdminState = createSelector(fromFeature.getAdminState, (state: fromFeature.AdminState) => state.users);
+const getAdminState = createSelector(fromFeature.getAdminState, (state: fromFeature.AdminState) => state.user);
 
 export const allUsers = createSelector(getAdminState, fromUser.getUserItems);
 export const isUsersLoading = createSelector(getAdminState, fromUser.getUsersLoading);

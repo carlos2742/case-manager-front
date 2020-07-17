@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
+import * as AdminStore from "./store";
+import {Store} from "@ngrx/store";
+import {Observable} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin',
@@ -8,13 +12,17 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class AdminComponent implements OnInit {
 
-  open: boolean;
-  constructor(private translate: TranslateService) {
-    this.open = true;
-  }
+  open$: Observable<boolean>;
+  constructor(private store: Store<AdminStore.AdminState>, private translate: TranslateService, private router: Router) {}
 
   ngOnInit(): void {
     this.initializeLanguage();
+    this.open$ = this.store.select(AdminStore.isAuthenticate);
+    this.store.select(AdminStore.isSignOutSuccess).subscribe(success => {
+      if(success){
+        this.router.navigateByUrl('admin/login');
+      }
+    });
   }
 
   public initializeLanguage() {
@@ -24,8 +32,7 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  toggle(){
-    this.open = !this.open;
+  public signOut(){
+    this.store.dispatch(new AdminStore.SignOut());
   }
-
 }

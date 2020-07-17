@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Apollo} from "apollo-angular";
-import gql from "graphql-tag";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthenticationService} from "../../services/auth/authentication.service";
+import {Store} from "@ngrx/store";
+import * as AdminStore from "../../store";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -13,11 +13,17 @@ export class LoginComponent implements OnInit {
 
   public form: FormGroup;
 
-  constructor(private auth: AuthenticationService, private formBuilder: FormBuilder) {
+  constructor(private store: Store<AdminStore.AdminState>, private formBuilder: FormBuilder, private router: Router) {
     this.initializeForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.select(AdminStore.isSignInSuccess).subscribe(success => {
+      if(success){
+        this.router.navigateByUrl('admin/clients');
+      }
+    });
+  }
 
   private initializeForm(){
     this.form = this.formBuilder.group({
@@ -28,14 +34,6 @@ export class LoginComponent implements OnInit {
 
   public signIn(){
     const payload = this.form.value;
-    this.auth.signIn(payload).subscribe(response =>{
-      localStorage.setItem('AUTH_TOKEN',response['authenticationToken']);
-    });
-  }
-
-  public signOut(){
-    this.auth.signOut().subscribe(response => {
-      localStorage.removeItem('AUTH_TOKEN');
-    })
+    this.store.dispatch(new AdminStore.SignIn(payload));
   }
 }
