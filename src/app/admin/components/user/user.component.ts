@@ -3,6 +3,9 @@ import {UserService} from "../../services/user/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DIALOG_ACTION_TYPE} from "../client/client.component";
+import * as AdminStore from '../../store';
+import {Store} from "@ngrx/store";
+import {Observable} from "rxjs";
 
 enum USER_ROLES{
   DEVELOPER,
@@ -19,12 +22,8 @@ export class UserComponent implements OnInit {
 
   @ViewChild('template',{static: false})
   template: TemplateRef<any>;
-  data: any;
-  displayedColumns: string[] = [
-    'name',
-    'email',
-    'rol',
-    'actions'];
+  data$: Observable<any>;
+  displayedColumns: Array<string>;
 
   form: FormGroup;
 
@@ -36,15 +35,19 @@ export class UserComponent implements OnInit {
                       public dialogMainActionName: string;
   public dialogMainAction: Function;
 
-  constructor(private user: UserService, public dialog: MatDialog, private formBuilder: FormBuilder) {
+  constructor(private store: Store<AdminStore.AdminState>, private user: UserService, public dialog: MatDialog, private formBuilder: FormBuilder) {
     this.DIALOG_ACTION_TYPE = DIALOG_ACTION_TYPE;
     this.USER_ROLES = USER_ROLES;
-    this.user.all.subscribe(response => {
-      this.data = response;
-    });
+    this.displayedColumns = [
+      'name',
+      'email',
+      'rol',
+      'actions'];
+    this.data$ = this.store.select(AdminStore.allUsers);
   }
 
   ngOnInit(): void {
+    this.store.dispatch(new AdminStore.LoadUsers({}));
     this.initializeForm();
   }
 
@@ -75,27 +78,17 @@ export class UserComponent implements OnInit {
 
   createUser(){
     const payload = this.form.value;
-    this.user.register(payload).subscribe(response =>{
-      const element = response;
-      this.data = this.data.concat([element]);
-    });
+    this.store.dispatch(new AdminStore.RegisterUser(payload));
   }
 
   deleteUser(id){
     const payload = id;
-    this.user.delete(payload).subscribe(response =>{
-      const element = response;
-      this.data = this.data.filter(item => item.id !== element.id);
-    });
+    this.store.dispatch(new AdminStore.DeleteUser(payload));
   }
 
   updateUser(element){
     const payload = Object.assign({id: element.id}, this.form.value);
-    this.user.update(payload).subscribe( response =>{
-      const element = response;
-      const index = this.data.findIndex(item => item.id === element.id);
-      this.data.splice(index,1,element);
-    });
+    this.store.dispatch(new AdminStore.UpdateUser(payload));
   }
 
   private openDialog(): void {

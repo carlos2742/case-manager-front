@@ -34,7 +34,7 @@ export class ClientComponent implements OnInit {
   public dialogMainActionName: string;
   public dialogMainAction: Function;
 
-  constructor(private store: Store<AdminStore.AdminState>, private client: ClientService, public dialog: MatDialog, private formBuilder: FormBuilder) {
+  constructor(private store: Store<AdminStore.AdminState>, public dialog: MatDialog, private formBuilder: FormBuilder) {
     this.DIALOG_ACTION_TYPE = DIALOG_ACTION_TYPE;
     this.displayedColumns = [
       'firstName',

@@ -1,6 +1,6 @@
 import {Action} from "@ngrx/store";
 
-export enum TYPES {
+export enum CLIENT_ACTION_TYPES {
   LOAD_CLIENTS = '[Client] Load Clients',
   LOAD_CLIENTS_SUCCESS = '[Client] Load Clients Success',
   LOAD_CLIENTS_FAIL = '[Client] Load Clients Fail',
@@ -16,66 +16,66 @@ export enum TYPES {
 }
 
 export class LoadClients implements Action {
-  readonly type = TYPES.LOAD_CLIENTS;
+  readonly type = CLIENT_ACTION_TYPES.LOAD_CLIENTS;
   constructor(public payload: any) {}
 }
 
 export class LoadClientsSuccess implements Action {
-  readonly type = TYPES.LOAD_CLIENTS_SUCCESS;
+  readonly type = CLIENT_ACTION_TYPES.LOAD_CLIENTS_SUCCESS;
   constructor(public payload: any) {}
 }
 
 export class LoadClientsFail implements Action {
-  readonly type = TYPES.LOAD_CLIENTS_FAIL;
+  readonly type = CLIENT_ACTION_TYPES.LOAD_CLIENTS_FAIL;
   constructor(public payload: any) {}
 }
 
 export class CreateClient implements Action {
-  readonly type = TYPES.CREATE_CLIENT;
+  readonly type = CLIENT_ACTION_TYPES.CREATE_CLIENT;
   constructor(public payload: any) {}
 }
 
 export class CreateClientSuccess implements Action {
-  readonly type = TYPES.CREATE_CLIENT_SUCCESS;
+  readonly type = CLIENT_ACTION_TYPES.CREATE_CLIENT_SUCCESS;
   constructor(public payload: any) {}
 }
 
 export class CreateClientFail implements Action {
-  readonly type = TYPES.CREATE_CLIENT_FAIL;
+  readonly type = CLIENT_ACTION_TYPES.CREATE_CLIENT_FAIL;
   constructor(public payload: any) {}
 }
 
 export class UpdateClient implements Action {
-  readonly type = TYPES.UPDATE_CLIENT;
+  readonly type = CLIENT_ACTION_TYPES.UPDATE_CLIENT;
   constructor(public payload: any) {}
 }
 
 export class UpdateClientSuccess implements Action {
-  readonly type = TYPES.UPDATE_CLIENT_SUCCESS;
+  readonly type = CLIENT_ACTION_TYPES.UPDATE_CLIENT_SUCCESS;
   constructor(public payload: any) {}
 }
 
 export class UpdateClientFail implements Action {
-  readonly type = TYPES.UPDATE_CLIENT_FAIL;
+  readonly type = CLIENT_ACTION_TYPES.UPDATE_CLIENT_FAIL;
   constructor(public payload: any) {}
 }
 
 export class DeleteClient implements Action {
-  readonly type = TYPES.DELETE_CLIENT;
+  readonly type = CLIENT_ACTION_TYPES.DELETE_CLIENT;
   constructor(public payload: any) {}
 }
 
 export class DeleteClientSuccess implements Action {
-  readonly type = TYPES.DELETE_CLIENT_SUCCESS;
+  readonly type = CLIENT_ACTION_TYPES.DELETE_CLIENT_SUCCESS;
   constructor(public payload: any) {}
 }
 
 export class DeleteClientFail implements Action {
-  readonly type = TYPES.DELETE_CLIENT_FAIL;
+  readonly type = CLIENT_ACTION_TYPES.DELETE_CLIENT_FAIL;
   constructor(public payload: any) {}
 }
 
-export type Actions =
+export type ClientActions =
   LoadClients |
   LoadClientsSuccess |
   LoadClientsFail |

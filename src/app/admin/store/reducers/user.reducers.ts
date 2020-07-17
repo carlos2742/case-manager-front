@@ -1,9 +1,9 @@
-import {IClient} from '../../models/admin.models'
-import * as fromClient from '../actions/client.actions'
+import {IUser} from '../../models/admin.models'
+import * as fromUser from '../actions/user.actions'
 
 export interface State {
   entities: {
-    items: Array<IClient>;
+    items: Array<IUser>;
     loaded: boolean;
     loading: boolean;
   };
@@ -49,11 +49,11 @@ export const initialState: State = {
 
 export function reducer(
   state = initialState,
-  action: fromClient.ClientActions
+  action: fromUser.UserActions
 ): State {
   switch (action.type) {
-    case fromClient.CLIENT_ACTION_TYPES.LOAD_CLIENTS: {
-      console.log(fromClient.CLIENT_ACTION_TYPES.LOAD_CLIENTS);
+    case fromUser.USER_ACTION_TYPES.LOAD_USERS: {
+      console.log(fromUser.USER_ACTION_TYPES.LOAD_USERS);
       return {
         ...state,
         entities:{
@@ -62,8 +62,8 @@ export function reducer(
         }
       };
     }
-    case fromClient.CLIENT_ACTION_TYPES.LOAD_CLIENTS_SUCCESS: {
-      console.log(fromClient.CLIENT_ACTION_TYPES.LOAD_CLIENTS_SUCCESS);
+    case fromUser.USER_ACTION_TYPES.LOAD_USERS_SUCCESS: {
+      console.log(fromUser.USER_ACTION_TYPES.LOAD_USERS_SUCCESS);
       return {
         ...state,
         entities:{
@@ -73,8 +73,8 @@ export function reducer(
         }
       };
     }
-    case fromClient.CLIENT_ACTION_TYPES.LOAD_CLIENTS_FAIL: {
-      console.log(fromClient.CLIENT_ACTION_TYPES.LOAD_CLIENTS_FAIL);
+    case fromUser.USER_ACTION_TYPES.LOAD_USERS_FAIL: {
+      console.log(fromUser.USER_ACTION_TYPES.LOAD_USERS_FAIL);
       return {
         ...state,
         entities:{
@@ -84,8 +84,8 @@ export function reducer(
         }
       };
     }
-    case fromClient.CLIENT_ACTION_TYPES.CREATE_CLIENT: {
-      console.log(fromClient.CLIENT_ACTION_TYPES.CREATE_CLIENT);
+    case fromUser.USER_ACTION_TYPES.REGISTER_USER: {
+      console.log(fromUser.USER_ACTION_TYPES.REGISTER_USER);
       return {
         ...state,
         create: {
@@ -95,8 +95,8 @@ export function reducer(
         }
       };
     }
-    case fromClient.CLIENT_ACTION_TYPES.CREATE_CLIENT_SUCCESS: {
-      console.log(fromClient.CLIENT_ACTION_TYPES.CREATE_CLIENT_SUCCESS);
+    case fromUser.USER_ACTION_TYPES.REGISTER_USER_SUCCESS: {
+      console.log(fromUser.USER_ACTION_TYPES.REGISTER_USER_SUCCESS);
       const items = [...state.entities.items];
       const createdItem = action.payload;
       return {
@@ -112,8 +112,8 @@ export function reducer(
         }
       };
     }
-    case fromClient.CLIENT_ACTION_TYPES.CREATE_CLIENT_FAIL: {
-      console.log(fromClient.CLIENT_ACTION_TYPES.CREATE_CLIENT_FAIL);
+    case fromUser.USER_ACTION_TYPES.REGISTER_USER_FAIL: {
+      console.log(fromUser.USER_ACTION_TYPES.REGISTER_USER_FAIL);
       console.log(action.payload);
       return {
         ...state,
@@ -124,8 +124,8 @@ export function reducer(
         }
       };
     }
-    case fromClient.CLIENT_ACTION_TYPES.UPDATE_CLIENT: {
-      console.log(fromClient.CLIENT_ACTION_TYPES.UPDATE_CLIENT);
+    case fromUser.USER_ACTION_TYPES.UPDATE_USER: {
+      console.log(fromUser.USER_ACTION_TYPES.UPDATE_USER);
       return {
         ...state,
         update: {
@@ -135,8 +135,8 @@ export function reducer(
         }
       };
     }
-    case fromClient.CLIENT_ACTION_TYPES.UPDATE_CLIENT_SUCCESS: {
-      console.log(fromClient.CLIENT_ACTION_TYPES.DELETE_CLIENT_SUCCESS);
+    case fromUser.USER_ACTION_TYPES.UPDATE_USER_SUCCESS: {
+      console.log(fromUser.USER_ACTION_TYPES.UPDATE_USER_SUCCESS);
       const items = [...state.entities.items];
       const updatedItem = action.payload;
       const index = items.findIndex(item => item.id === updatedItem.id);
@@ -154,8 +154,8 @@ export function reducer(
         }
       };
     }
-    case fromClient.CLIENT_ACTION_TYPES.UPDATE_CLIENT_FAIL: {
-      console.log(fromClient.CLIENT_ACTION_TYPES.UPDATE_CLIENT_FAIL);
+    case fromUser.USER_ACTION_TYPES.UPDATE_USER_FAIL: {
+      console.log(fromUser.USER_ACTION_TYPES.UPDATE_USER_FAIL);
       console.log(action.payload);
       return {
         ...state,
@@ -166,8 +166,8 @@ export function reducer(
         }
       };
     }
-    case fromClient.CLIENT_ACTION_TYPES.DELETE_CLIENT: {
-      console.log(fromClient.CLIENT_ACTION_TYPES.DELETE_CLIENT);
+    case fromUser.USER_ACTION_TYPES.DELETE_USER: {
+      console.log(fromUser.USER_ACTION_TYPES.DELETE_USER);
       return {
         ...state,
         delete: {
@@ -177,8 +177,8 @@ export function reducer(
         }
       };
     }
-    case fromClient.CLIENT_ACTION_TYPES.DELETE_CLIENT_SUCCESS: {
-      console.log(fromClient.CLIENT_ACTION_TYPES.DELETE_CLIENT_SUCCESS);
+    case fromUser.USER_ACTION_TYPES.DELETE_USER_SUCCESS: {
+      console.log(fromUser.USER_ACTION_TYPES.DELETE_USER_SUCCESS);
       const items = [...state.entities.items];
       const deletedItem = action.payload;
       return {
@@ -194,8 +194,8 @@ export function reducer(
         }
       };
     }
-    case fromClient.CLIENT_ACTION_TYPES.DELETE_CLIENT_FAIL: {
-      console.log(fromClient.CLIENT_ACTION_TYPES.DELETE_CLIENT_FAIL);
+    case fromUser.USER_ACTION_TYPES.DELETE_USER_FAIL: {
+      console.log(fromUser.USER_ACTION_TYPES.DELETE_USER_FAIL);
       console.log(action.payload);
       return {
         ...state,
@@ -212,21 +212,21 @@ export function reducer(
   }
 }
 
-export const getClientItems = (state: State) => state.entities.items;
-export const getClientsLoaded = (state: State) => state.entities.loaded;
-export const getClientsLoading = (state: State) => state.entities.loading;
+export const getUserItems = (state: State) => state.entities.items;
+export const getUsersLoaded = (state: State) => state.entities.loaded;
+export const getUsersLoading = (state: State) => state.entities.loading;
 
-export const getCreateClientOngoing = (state: State) => state.create.ongoing;
-export const getCreateClientSuccess = (state: State) => state.create.success;
-export const getCreateClientError = (state: State) => state.create.error;
+export const getRegisterUserOngoing = (state: State) => state.create.ongoing;
+export const getRegisterUserSuccess = (state: State) => state.create.success;
+export const getRegisterUserError = (state: State) => state.create.error;
 
-export const getUpdateClientOngoing = (state: State) => state.update.ongoing;
-export const getUpdateClientSuccess = (state: State) => state.update.success;
-export const getUpdateClientError = (state: State) => state.update.error;
+export const getUpdateUserOngoing = (state: State) => state.update.ongoing;
+export const getUpdateUserSuccess = (state: State) => state.update.success;
+export const getUpdateUserError = (state: State) => state.update.error;
 
-export const getDeleteClientOngoing = (state: State) => state.delete.ongoing;
-export const getDeleteClientSuccess = (state: State) => state.delete.success;
-export const getDeleteClientError = (state: State) => state.delete.error;
+export const getDeleteUserOngoing = (state: State) => state.delete.ongoing;
+export const getDeleteUserSuccess = (state: State) => state.delete.success;
+export const getDeleteUserError = (state: State) => state.delete.error;
 
 
 
