@@ -114,7 +114,6 @@ export function reducer(
     }
     case fromUser.USER_ACTION_TYPES.REGISTER_USER_FAIL: {
       console.log(fromUser.USER_ACTION_TYPES.REGISTER_USER_FAIL);
-      console.log(action.payload);
       return {
         ...state,
         create:{
@@ -156,7 +155,6 @@ export function reducer(
     }
     case fromUser.USER_ACTION_TYPES.UPDATE_USER_FAIL: {
       console.log(fromUser.USER_ACTION_TYPES.UPDATE_USER_FAIL);
-      console.log(action.payload);
       return {
         ...state,
         update:{
@@ -196,7 +194,6 @@ export function reducer(
     }
     case fromUser.USER_ACTION_TYPES.DELETE_USER_FAIL: {
       console.log(fromUser.USER_ACTION_TYPES.DELETE_USER_FAIL);
-      console.log(action.payload);
       return {
         ...state,
         delete:{

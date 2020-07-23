@@ -23,6 +23,18 @@ export class AuthEffects {
     );
 
   @Effect()
+  getLoggedUser$ = this.actions$
+    .pipe(
+      ofType(fromAuth.AUTH_ACTION_TYPES.GET_LOGGED_USER),
+      switchMap(() => {
+        return this.auth.loggedUser.pipe(
+          map(response => new fromAuth.GetLoggedUserSuccess(response)),
+          catchError(error => of(new fromAuth.GetLoggedUserFail(error)))
+        );
+      })
+    );
+
+  @Effect()
   signOut$ = this.actions$
     .pipe(
       ofType(fromAuth.AUTH_ACTION_TYPES.SIGN_OUT),

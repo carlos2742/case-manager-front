@@ -13,21 +13,19 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef class="text-center"> {{'ACTIONS.LABEL' | translate}} </th>
     <td mat-cell *matCellDef="let element" class="text-center">
-      <button
-        mat-icon-button
-        matTooltip="{{'ACTIONS.UPDATE' | translate}}"
-        matTooltipPosition="before"
-        (click)="update(element)"
-        class="mr-2">
-        <mat-icon>edit</mat-icon>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
       </button>
-      <button
-        mat-icon-button
-        matTooltip="{{'ACTIONS.DELETE' | translate}}"
-        matTooltipPosition="after"
-        (click)="delete(element.id)">
-        <mat-icon>delete</mat-icon>
-      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="update(element)">
+          <mat-icon>edit</mat-icon>
+          <span>{{'ACTIONS.UPDATE' | translate}}</span>
+        </button>
+        <button mat-menu-item (click)="delete(element.id)">
+          <mat-icon>delete</mat-icon>
+          <span>{{'ACTIONS.DELETE' | translate}}</span>
+        </button>
+      </mat-menu>
     </td>
   </ng-container>
 

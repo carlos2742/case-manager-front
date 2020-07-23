@@ -34,6 +34,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
-button:focus{
+.mat-list-text>*, button:focus{
   outline: none;
+}
+
+.mat-card-header-text{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.mat-menu-item{
+  display: flex !important;
+  align-items: center;
 }

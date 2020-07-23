@@ -5,6 +5,12 @@ import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 
+interface IOptions{
+  icon: string;
+  name: string;
+  url: string;
+}
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -12,8 +18,15 @@ import {Router} from "@angular/router";
 })
 export class AdminComponent implements OnInit {
 
-  open$: Observable<boolean>;
-  constructor(private store: Store<AdminStore.AdminState>, private translate: TranslateService, private router: Router) {}
+  public open$: Observable<boolean>;
+  public options: Array<IOptions>;
+
+  constructor(private store: Store<AdminStore.AdminState>, private translate: TranslateService, private router: Router) {
+    this.options = [
+      { icon: 'group', name: 'CLIENT.LABEL.PLURAL', url: 'clients'},
+      { icon: 'supervisor_account', name: 'USER.LABEL.PLURAL', url: 'users'}
+    ];
+  }
 
   ngOnInit(): void {
     this.initializeLanguage();

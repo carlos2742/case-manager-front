@@ -24,16 +24,28 @@
     "ATTR": {
       "NAME": "Name",
       "EMAIL": "Email",
+      "PASSWORD": "Password",
       "ROL": "Rol"
     }
   },
+  "AUTH": {
+    "LABEL": "Sign in to your account"
+  },
   "ACTIONS": {
     "LABEL": "Options",
-    "CREATE": "Create",
+    "CREATE": "Add",
     "UPDATE": "Update",
     "DELETE": "Delete",
     "CLOSE": "Close",
     "SIGN_IN": "Sign In",
     "SIGN_OUT": "Sign Out"
+  },
+  "REQUIRED": {
+    "EMAIL": "Email required",
+    "PASSWORD": "Password required"
+  },
+  "PLACEHOLDER": {
+    "EMAIL": "Enter email",
+    "PASSWORD": "Enter password"
   }
 }

@@ -29,7 +29,7 @@ export class ClientComponent implements OnInit {
 
   public DIALOG_ACTION_TYPE;
 
-  public dialogTitle: String;
+  public dialogTitle: string;
   public dialogActionType: DIALOG_ACTION_TYPE;
   public dialogMainActionName: string;
   public dialogMainAction: Function;
@@ -56,7 +56,7 @@ export class ClientComponent implements OnInit {
   }
 
   openCreateDialog(){
-    this.dialogTitle = 'Create Client';
+    this.dialogTitle = 'ACTIONS.CREATE';
     this.dialogMainActionName = 'ACTIONS.CREATE';
     this.dialogActionType = DIALOG_ACTION_TYPE.CREATE;
     this.dialogMainAction = () => this.createClient();
@@ -97,7 +97,7 @@ export class ClientComponent implements OnInit {
 
   private openDialog(): void {
     const dialogRef = this.dialog.open(this.template, {
-      width: 'auto'
+      maxWidth: 'auto'
     });
 
     dialogRef.afterClosed().subscribe(result => {

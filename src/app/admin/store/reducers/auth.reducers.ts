@@ -77,6 +77,28 @@ export function reducer(
         }
       };
     }
+    case fromAuth.AUTH_ACTION_TYPES.GET_LOGGED_USER: {
+      console.log(fromAuth.AUTH_ACTION_TYPES.GET_LOGGED_USER);
+      return {...state};
+    }
+    case fromAuth.AUTH_ACTION_TYPES.GET_LOGGED_USER_SUCCESS: {
+      console.log(fromAuth.AUTH_ACTION_TYPES.GET_LOGGED_USER_SUCCESS);
+      let newState = {...state};
+      if(state.entity.item !== action.payload){
+        newState = {
+          ...state,
+          entity:{
+            item: action.payload,
+            logged: true
+          }
+        };
+      }
+      return newState;
+    }
+    case fromAuth.AUTH_ACTION_TYPES.GET_LOGGED_USER_FAIL: {
+      console.log(fromAuth.AUTH_ACTION_TYPES.GET_LOGGED_USER_FAIL);
+      return {...state};
+    }
     case fromAuth.AUTH_ACTION_TYPES.SIGN_OUT: {
       console.log(fromAuth.AUTH_ACTION_TYPES.SIGN_OUT);
       return {

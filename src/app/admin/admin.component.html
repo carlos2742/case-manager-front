@@ -1,25 +1,33 @@
+<mat-toolbar color="primary" *ngIf="open$ | async">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Case Managment</span>
+  <span style="flex: 1 1 auto;"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>settings</mat-icon>
+      <span>Account</span>
+    </button>
+    <button mat-menu-item (click)="signOut()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>{{'ACTIONS.SIGN_OUT' | translate}}</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
 <mat-drawer-container class="h-100" >
   <mat-drawer mode="side" opened="{{open$ | async}}">
-    <div class="pl-3 pr-3">
-      <div>
-        <button mat-button routerLink="clients">
-          <mat-icon>group</mat-icon>
-          <span class="ml-5">{{'CLIENT.LABEL.PLURAL' | translate}}</span>
-        </button>
-      </div>
-      <div>
-        <button mat-button routerLink="users">
-          <mat-icon>business</mat-icon>
-          <span class="ml-5">{{'USER.LABEL.PLURAL' | translate}}</span>
-        </button>
-      </div>
-      <div>
-        <button mat-button (click)="signOut()">
-          <mat-icon>out</mat-icon>
-          <span class="ml-5">{{'ACTIONS.SIGN_OUT' | translate}}</span>
-        </button>
-      </div>
-    </div>
+    <mat-selection-list [multiple]="false">
+      <mat-list-option *ngFor="let option of options" [value]="options[0]">
+        <div class="pl-4 d-flex align-items-center" routerLink="{{option.url}}">
+          <mat-icon>{{option.icon}}</mat-icon>
+          <span class="ml-4">{{option.name | translate}}</span>
+        </div>
+      </mat-list-option>
+    </mat-selection-list>
   </mat-drawer>
   <mat-drawer-content>
     <div class="p-5 ml-5 mr-5 h-100">

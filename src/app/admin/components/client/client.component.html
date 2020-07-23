@@ -5,7 +5,7 @@
   matTooltip="{{'ACTIONS.CREATE' | translate}}"
   matTooltipPosition="right"
   (click)="openCreateDialog()">
-  <mat-icon>add</mat-icon>
+  <mat-icon>person_add</mat-icon>
 </button>
 
 <div class="mt-3">
@@ -19,14 +19,21 @@
 </div>
 
 <ng-template #template>
-  <div mat-dialog-title>{{dialogTitle}}</div>
+  <div mat-dialog-title>
+    <div class="d-flex justify-content-end" style="margin-right: -23px; margin-top: -23px;">
+      <button mat-icon-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div>{{dialogTitle | translate}}</div>
+  </div>
   <div mat-dialog-content>
     <ng-container *ngIf="dialogActionType === DIALOG_ACTION_TYPE.REMOVE" [ngTemplateOutlet]="removeTemplate"></ng-container>
     <ng-container *ngIf="dialogActionType !== DIALOG_ACTION_TYPE.REMOVE" [ngTemplateOutlet]="formTemplate"></ng-container>
   </div>
-  <div mat-dialog-actions>
+  <div mat-dialog-actions class="d-flex justify-content-end">
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="dialogMainAction()">{{dialogMainActionName | translate}}</button>
     <button mat-raised-button mat-dialog-close>{{'ACTIONS.CLOSE' | translate}}</button>
-    <button mat-raised-button [mat-dialog-close]="true" (click)="dialogMainAction()">{{dialogMainActionName | translate}}</button>
   </div>
 </ng-template>
 
@@ -35,21 +42,24 @@
 </ng-template>
 <ng-template #formTemplate>
   <div [formGroup]="form">
-    <mat-form-field style="width: 100%;">
+    <mat-form-field class="w-100" appearance="outline">
       <mat-label>First Name</mat-label>
-      <input matInput placeholder="Jhon" value="" formControlName="first_name">
+      <input matInput placeholder="Jhon" value="" formControlName="first_name" required>
     </mat-form-field>
-    <mat-form-field class="w-100">
+    <mat-form-field class="w-100" appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput placeholder="jhon@gmail.com" value="" formControlName="email">
+      <input matInput placeholder="jhon@gmail.com" value="" formControlName="email" required>
+      <mat-icon matSuffix>email</mat-icon>
     </mat-form-field>
-    <mat-form-field class="w-100">
+    <mat-form-field class="w-100" appearance="outline">
       <mat-label>Phone Number</mat-label>
-      <input matInput placeholder="777777777" value="" formControlName="phone_number">
+      <input matInput placeholder="777777777" value="" formControlName="phone_number" required>
+      <mat-icon matSuffix>phone</mat-icon>
     </mat-form-field>
-    <mat-form-field class="w-100">
+    <mat-form-field class="w-100" appearance="outline">
       <mat-label>Emergency Contact</mat-label>
-      <input matInput placeholder="777777777" value="" formControlName="emergency_contact">
+      <input matInput placeholder="777777777" value="" formControlName="emergency_contact" required>
+      <mat-icon matSuffix>phone</mat-icon>
     </mat-form-field>
   </div>
 </ng-template>

@@ -12,6 +12,11 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {HttpClient} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatListModule} from '@angular/material/list';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -28,6 +33,11 @@ export function createTranslateLoader(http: HttpClient) {
     MatSelectModule,
     MatCardModule,
     MatTooltipModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatListModule,
+    MatToolbarModule,
+    MatMenuModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
@@ -45,6 +55,11 @@ export function createTranslateLoader(http: HttpClient) {
     MatSelectModule,
     MatCardModule,
     MatTooltipModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatListModule,
+    MatToolbarModule,
+    MatMenuModule,
     TranslateModule
   ],
   providers:[

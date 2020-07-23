@@ -7,6 +7,7 @@ export enum USER_ROLES{
 export interface IUser {
   id: string;
   rol: USER_ROLES;
+  authenticationToken: string;
 }
 
 export interface IClient {

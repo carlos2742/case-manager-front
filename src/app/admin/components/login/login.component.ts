@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import * as AdminStore from "../../store";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -12,9 +13,13 @@ import {Router} from "@angular/router";
 export class LoginComponent implements OnInit {
 
   public form: FormGroup;
+  public hide:boolean;
+  public processing$: Observable<boolean>;
 
   constructor(private store: Store<AdminStore.AdminState>, private formBuilder: FormBuilder, private router: Router) {
+    this.hide = true;
     this.initializeForm();
+    this.processing$ = store.select(AdminStore.isSignInProcessing);
   }
 
   ngOnInit(): void {

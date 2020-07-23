@@ -114,7 +114,6 @@ export function reducer(
     }
     case fromClient.CLIENT_ACTION_TYPES.CREATE_CLIENT_FAIL: {
       console.log(fromClient.CLIENT_ACTION_TYPES.CREATE_CLIENT_FAIL);
-      console.log(action.payload);
       return {
         ...state,
         create:{
@@ -156,7 +155,6 @@ export function reducer(
     }
     case fromClient.CLIENT_ACTION_TYPES.UPDATE_CLIENT_FAIL: {
       console.log(fromClient.CLIENT_ACTION_TYPES.UPDATE_CLIENT_FAIL);
-      console.log(action.payload);
       return {
         ...state,
         update:{
@@ -196,7 +194,6 @@ export function reducer(
     }
     case fromClient.CLIENT_ACTION_TYPES.DELETE_CLIENT_FAIL: {
       console.log(fromClient.CLIENT_ACTION_TYPES.DELETE_CLIENT_FAIL);
-      console.log(action.payload);
       return {
         ...state,
         delete:{
