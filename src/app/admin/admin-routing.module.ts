@@ -6,6 +6,7 @@ import {ClientComponent} from "./components/client/client.component";
 import {UserComponent} from "./components/user/user.component";
 import {GuardService} from "./services/auth/guard.service";
 import {USER_ROLES} from "./models/admin.models";
+import {UnauthorizedComponent} from "./components/unauthorized/unauthorized.component";
 
 
 const routes: Routes = [
@@ -30,7 +31,10 @@ const routes: Routes = [
           roles: [USER_ROLES.ADMIN, USER_ROLES.DEVELOPER]
         }
       },
-      { path: '**', redirectTo: '404'}
+      {
+        path: '401',
+        component: UnauthorizedComponent
+      }
     ]
   }
 ];

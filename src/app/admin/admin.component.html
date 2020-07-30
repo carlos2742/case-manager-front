@@ -1,36 +1,43 @@
-<mat-toolbar color="primary" *ngIf="open$ | async">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Case Managment</span>
-  <span style="flex: 1 1 auto;"></span>
-  <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon>account_circle</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item>
-      <mat-icon>settings</mat-icon>
-      <span>Account</span>
-    </button>
-    <button mat-menu-item (click)="signOut()">
-      <mat-icon>exit_to_app</mat-icon>
-      <span>{{'ACTIONS.SIGN_OUT' | translate}}</span>
-    </button>
-  </mat-menu>
-</mat-toolbar>
-<mat-drawer-container class="h-100" >
-  <mat-drawer mode="side" opened="{{open$ | async}}">
-    <mat-selection-list [multiple]="false">
-      <mat-list-option *ngFor="let option of options" [value]="options[0]">
-        <div class="pl-4 d-flex align-items-center" routerLink="{{option.url}}">
-          <mat-icon>{{option.icon}}</mat-icon>
-          <span class="ml-4">{{option.name | translate}}</span>
+<mat-drawer-container style="min-height: 100vh">
+  <mat-drawer mode="side" opened="{{open}}">
+    <div class="mt-3 ml-4 mr-4">
+      <h5 class="text-center mb-3">Case Managment</h5>
+      <mat-divider></mat-divider>
+      <mat-selection-list [multiple]="false">
+        <div *ngFor="let option of options">
+          <div *isAllow="option.allowed">
+            <div class="mt-1" mat-subheader>{{option.header | uppercase}}</div>
+            <mat-list-option *ngFor="let element of option.elements" [value]="element" [disabled]="element.disabled" [selected]="element.selected">
+              <div class="d-flex align-items-center" routerLink="{{element.url}}">
+                <mat-icon>{{element.icon}}</mat-icon>
+                <span class="ml-4">{{element.name | translate}}</span>
+              </div>
+            </mat-list-option>
+          </div>
         </div>
-      </mat-list-option>
-    </mat-selection-list>
+      </mat-selection-list>
+    </div>
   </mat-drawer>
   <mat-drawer-content>
-    <div class="p-5 ml-5 mr-5 h-100">
+    <div class="mt-3 ml-3 mr-3">
+      <mat-toolbar color="primary" *ngIf="open">
+        <span style="flex: 1 1 auto;"></span>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>settings</mat-icon>
+            <span>Account</span>
+          </button>
+          <button mat-menu-item (click)="signOut()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>{{'ACTIONS.SIGN_OUT' | translate}}</span>
+          </button>
+        </mat-menu>
+      </mat-toolbar>
+    </div>
+    <div class="ml-3 mr-3 h-100">
       <router-outlet></router-outlet>
     </div>
   </mat-drawer-content>

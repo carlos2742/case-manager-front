@@ -20,36 +20,36 @@ export class GuardService implements CanActivate{
   constructor(private store: Store<AdminStore.AdminState>, private auth: AuthenticationService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.allowCurrentUser(route);
+    return this._allowCurrentUser(route);
   }
 
-  private allowCurrentUser(route: ActivatedRouteSnapshot): Observable<boolean>{
+  private _allowCurrentUser(route: ActivatedRouteSnapshot): Observable<boolean>{
     return new Observable<boolean>(observe => {
       this.auth.loggedUser.pipe(
         switchMap((loggedUser: IUser) =>{
           if(!loggedUser){
-            this.action(observe, GUARD_STATUS.UNAUTHENTICATED);
+            this._action(observe, GUARD_STATUS.UNAUTHENTICATED);
             return of(GUARD_STATUS.UNAUTHENTICATED);
           } else {
             const requiredRoles = route.data.roles;
             if(!requiredRoles || requiredRoles.length === 0 || requiredRoles.indexOf(loggedUser.rol) > -1){
-              this.action(observe, GUARD_STATUS.ALLOWED);
+              this._action(observe, GUARD_STATUS.ALLOWED);
             } else {
-              this.action(observe, GUARD_STATUS.UNAUTHORIZED);
+              this._action(observe, GUARD_STATUS.UNAUTHORIZED);
             }
             return of(GUARD_STATUS.UNAUTHORIZED);
           }
         }),
         catchError(error => {
           console.log(error);
-          this.action(observe, GUARD_STATUS.UNAUTHENTICATED);
+          this._action(observe, GUARD_STATUS.UNAUTHENTICATED);
           return of(GUARD_STATUS.UNAUTHENTICATED);
         })
       ).subscribe();
     });
   }
 
-  private action(observe, status: GUARD_STATUS){
+  private _action(observe, status: GUARD_STATUS){
     observe.next(status === GUARD_STATUS.ALLOWED ? true : false);
     observe.complete();
     this.store.dispatch(new AdminStore.GetLoggedUser());

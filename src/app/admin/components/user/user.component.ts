@@ -25,7 +25,7 @@ export class UserComponent implements OnInit {
   public DIALOG_ACTION_TYPE;
   public USER_ROLES;
 
-  public dialogTitle: String;
+  public dialogTitle: string;
   public dialogActionType: DIALOG_ACTION_TYPE;
   public dialogMainActionName: string;
   public dialogMainAction: Function;
@@ -37,7 +37,7 @@ export class UserComponent implements OnInit {
       'name',
       'email',
       'rol',
-      'actions'];
+      'options'];
     this.data$ = this.store.select(AdminStore.allUsers);
   }
 
@@ -47,7 +47,7 @@ export class UserComponent implements OnInit {
   }
 
   openCreateDialog(){
-    this.dialogTitle = 'Create User';
+    this.dialogTitle = 'ACTIONS.CREATE';
     this.dialogMainActionName = 'ACTIONS.CREATE';
     this.dialogActionType = DIALOG_ACTION_TYPE.CREATE;
     this.dialogMainAction = () => this.createUser();
@@ -88,7 +88,7 @@ export class UserComponent implements OnInit {
 
   private openDialog(): void {
     const dialogRef = this.dialog.open(this.template, {
-      width: 'auto'
+      width: '500px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

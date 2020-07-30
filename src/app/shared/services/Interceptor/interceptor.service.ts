@@ -30,7 +30,7 @@ export class InterceptorService implements HttpInterceptor{
       tap(response =>{
         if(response instanceof HttpResponse){
           if(response['body']['errors'] && response['body']['errors'].length > 0){
-            console.log('unautorizaed');
+            console.log('unautorized');
           }
         }
       })

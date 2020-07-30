@@ -127,6 +127,7 @@ export function reducer(
     }
     case fromAuth.AUTH_ACTION_TYPES.SIGN_OUT_FAIL: {
       console.log(fromAuth.AUTH_ACTION_TYPES.SIGN_OUT_FAIL);
+      console.log(action.payload);
       return {
         ...state,
         singOut:{
@@ -148,7 +149,7 @@ export const getAuthLogged = (state: State) => state.entity.logged;
 
 export const getSignInOngoing = (state: State) => state.signIn.ongoing;
 export const getSignInSuccess = (state: State) => state.signIn.success;
-export const getSignInError = (state: State) => state.signIn.error;
+export const signInError = (state: State) => state.signIn.error;
 
 export const getSignOutOngoing = (state: State) => state.singOut.ongoing;
 export const getSignOutSuccess = (state: State) => state.singOut.success;

@@ -14,13 +14,17 @@ import { UserComponent } from './components/user/user.component';
 import {StoreModule} from "@ngrx/store";
 import {EffectsModule} from "@ngrx/effects";
 import { reducers, effects } from './store';
+import { IsAllowDirective } from './directives/is-allow/is-allow.directive';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     LoginComponent,
     ClientComponent,
-    UserComponent
+    UserComponent,
+    IsAllowDirective,
+    UnauthorizedComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +36,10 @@ import { reducers, effects } from './store';
     StoreModule.forFeature('admin', reducers),
     EffectsModule.forFeature(effects)
   ],
-  providers:[
+  exports: [
+    IsAllowDirective
+  ],
+  providers: [
     ClientService
   ]
 })

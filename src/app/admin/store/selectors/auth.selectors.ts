@@ -10,9 +10,9 @@ export const isAuthenticate = createSelector(getAdminState, fromAuth.getAuthLogg
 
 export const isSignInProcessing = createSelector(getAdminState, fromAuth.getSignInOngoing);
 export const isSignInSuccess = createSelector(getAdminState, fromAuth.getSignInSuccess);
-export const isSignInError = createSelector(getAdminState, fromAuth.getSignInError);
+export const getSignInError = createSelector(getAdminState, fromAuth.signInError);
 
 export const isSignOutProcessing = createSelector(getAdminState, fromAuth.getSignOutOngoing);
 export const isSignOutSuccess = createSelector(getAdminState, fromAuth.getSignOutSuccess);
-export const isSignOutError = createSelector(getAdminState, fromAuth.getSignOutError);
+export const getSignOutError = createSelector(getAdminState, fromAuth.getSignOutError);
 

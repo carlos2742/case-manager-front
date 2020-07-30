@@ -4,13 +4,15 @@
   <ng-container *ngFor="let column of displayColumnFilter">
     <ng-container matColumnDef="{{column}}">
       <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:10%;">{{getLanguageKeyColumn(column) | translate}}</th>
-      <td mat-cell *matCellDef="let element" style="width:10%;"> {{element[column]}} </td>
+      <td mat-cell *matCellDef="let element" style="width:10%;">
+        <span *ngIf="column !== 'rol'">{{element[column]}}</span>
+        <span *ngIf="column === 'rol'">{{'ROLES.'+element[column] | translate}}</span>
+      </td>
     </ng-container>
   </ng-container>
 
-
   <!-- Action Column -->
-  <ng-container matColumnDef="actions">
+  <ng-container matColumnDef="options">
     <th mat-header-cell *matHeaderCellDef class="text-center"> {{'ACTIONS.LABEL' | translate}} </th>
     <td mat-cell *matCellDef="let element" class="text-center">
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -19,11 +21,11 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="update(element)">
           <mat-icon>edit</mat-icon>
-          <span>{{'ACTIONS.UPDATE' | translate}}</span>
+          <span>{{'ACTIONS.UPDATE' | translate:{entity: (entity+'.LABEL.SINGULAR' | translate)} }}</span>
         </button>
         <button mat-menu-item (click)="delete(element.id)">
           <mat-icon>delete</mat-icon>
-          <span>{{'ACTIONS.DELETE' | translate}}</span>
+          <span>{{'ACTIONS.DELETE' | translate:{entity: (entity+'.LABEL.SINGULAR' | translate)} }}</span>
         </button>
       </mat-menu>
     </td>

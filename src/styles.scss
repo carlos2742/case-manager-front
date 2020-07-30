@@ -43,6 +43,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   display: flex;
   justify-content: center;
 }
+.mat-card-content{
+  font-size: inherit;
+}
+.mat-list-base .mat-list-item.mat-list-item-disabled{
+  background-color: transparent;
+  color: gray;
+  &:focus{
+    outline: none;
+  }
+}
+.mat-list-single-selected-option{
+  cursor: auto !important;
+  background: rgba(0, 0, 0, 0.12) !important;
+}
+.mat-snack-bar-container{
+  background-color: transparent;
+  box-shadow: none;
+  margin: 0 !important;
+}
 .mat-menu-item{
   display: flex !important;
   align-items: center;

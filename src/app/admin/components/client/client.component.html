@@ -1,65 +1,121 @@
-<div class="d-flex justify-content-center"><h2>{{'CLIENT.LABEL.PLURAL' | translate}}</h2></div>
-<button
-  mat-fab
-  color="primary"
-  matTooltip="{{'ACTIONS.CREATE' | translate}}"
-  matTooltipPosition="right"
-  (click)="openCreateDialog()">
-  <mat-icon>person_add</mat-icon>
-</button>
-
-<div class="mt-3">
-  <app-table
-    [dataSource]="data$ | async"
-    [entity]="'CLIENT'"
-    [displayedColumns]="displayedColumns"
-    (updateEvent)="openUpdateDialog($event)"
-    (deleteEvent)="openDeleteDialog($event)"
-  ></app-table>
-</div>
-
-<ng-template #template>
-  <div mat-dialog-title>
-    <div class="d-flex justify-content-end" style="margin-right: -23px; margin-top: -23px;">
-      <button mat-icon-button mat-dialog-close>
-        <mat-icon>close</mat-icon>
+<div class="sub-tool-bar mb-5">
+  <div class="pt-1 pb-1 pl-5 pr-5 d-flex justify-content-between align-items-center">
+    <div class="d-flex pt-2 pb-2">
+      <mat-icon class="mr-2">group</mat-icon>
+      <span>{{'CLIENT.LABEL.PLURAL' | translate}}</span>
+    </div>
+    <div>
+      <button
+        *isAllow="[USER_ROLES.DEVELOPER, USER_ROLES.ADMIN]"
+        mat-icon-button
+        color="primary"
+        matTooltip="{{'ACTIONS.CREATE' | translate:{entity: ('CLIENT.LABEL.SINGULAR' | translate)} }}"
+        matTooltipPosition="right"
+        (click)="openCreateDialog()">
+        <mat-icon>person_add</mat-icon>
       </button>
     </div>
-    <div>{{dialogTitle | translate}}</div>
   </div>
-  <div mat-dialog-content>
-    <ng-container *ngIf="dialogActionType === DIALOG_ACTION_TYPE.REMOVE" [ngTemplateOutlet]="removeTemplate"></ng-container>
-    <ng-container *ngIf="dialogActionType !== DIALOG_ACTION_TYPE.REMOVE" [ngTemplateOutlet]="formTemplate"></ng-container>
+</div>
+<div class="pl-5 pr-5 pb-5">
+  <div class="mt-3">
+    <app-table
+      [dataSource]="data$ | async"
+      [entity]="'CLIENT'"
+      [displayedColumns]="displayedColumns"
+      (updateEvent)="openUpdateDialog($event)"
+      (deleteEvent)="openDeleteDialog($event)"
+    ></app-table>
   </div>
-  <div mat-dialog-actions class="d-flex justify-content-end">
-    <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="dialogMainAction()">{{dialogMainActionName | translate}}</button>
-    <button mat-raised-button mat-dialog-close>{{'ACTIONS.CLOSE' | translate}}</button>
-  </div>
-</ng-template>
 
-<ng-template #removeTemplate>
-  <div>Esta seguro que desea eliminar el cliente?</div>
-</ng-template>
-<ng-template #formTemplate>
-  <div [formGroup]="form">
-    <mat-form-field class="w-100" appearance="outline">
-      <mat-label>First Name</mat-label>
-      <input matInput placeholder="Jhon" value="" formControlName="first_name" required>
-    </mat-form-field>
-    <mat-form-field class="w-100" appearance="outline">
-      <mat-label>Email</mat-label>
-      <input matInput placeholder="jhon@gmail.com" value="" formControlName="email" required>
-      <mat-icon matSuffix>email</mat-icon>
-    </mat-form-field>
-    <mat-form-field class="w-100" appearance="outline">
-      <mat-label>Phone Number</mat-label>
-      <input matInput placeholder="777777777" value="" formControlName="phone_number" required>
-      <mat-icon matSuffix>phone</mat-icon>
-    </mat-form-field>
-    <mat-form-field class="w-100" appearance="outline">
-      <mat-label>Emergency Contact</mat-label>
-      <input matInput placeholder="777777777" value="" formControlName="emergency_contact" required>
-      <mat-icon matSuffix>phone</mat-icon>
-    </mat-form-field>
-  </div>
-</ng-template>
+  <ng-template #template>
+    <div mat-dialog-title>
+      <div>{{dialogTitle | translate:{entity: ('CLIENT.LABEL.SINGULAR' | translate)} }}</div>
+    </div>
+    <div mat-dialog-content>
+      <ng-container *ngIf="dialogActionType === DIALOG_ACTION_TYPE.REMOVE" [ngTemplateOutlet]="removeTemplate"></ng-container>
+      <ng-container *ngIf="dialogActionType !== DIALOG_ACTION_TYPE.REMOVE" [ngTemplateOutlet]="formTemplate"></ng-container>
+    </div>
+    <hr>
+    <div mat-dialog-actions class="d-flex justify-content-end pb-3">
+      <button mat-raised-button color="primary" *ngIf="showNextButton" (click)="stepper.next()">Next</button>
+      <button mat-raised-button color="primary" *ngIf="!showNextButton" [mat-dialog-close]="true" (click)="dialogMainAction()">{{dialogMainActionName | translate:{entity: ''} }}</button>
+      <button mat-raised-button mat-dialog-close>{{'ACTIONS.CLOSE' | translate}}</button>
+    </div>
+  </ng-template>
+
+  <ng-template #removeTemplate>
+    <div>{{"MESSAGE.DELETE" | translate:{entity: ('CLIENT.LABEL.SINGULAR'| translate | lowercase)} }}</div>
+  </ng-template>
+
+  <ng-template #formTemplate>
+    <mat-vertical-stepper [linear]="true" #stepper (selectionChange)="stepperChanged($event)" style="min-width: 500px">
+      <mat-step [label]="'step1'" [stepControl]="requiredForm" #requiredStep [editable]="true">
+        <form [formGroup]="requiredForm">
+          <ng-template matStepLabel>{{"CLIENT.FORM.STEP1" | translate}}</ng-template>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>{{'CLIENT.ATTR.FIRSTNAME'| translate}}</mat-label>
+            <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.FIRSTNAME'| translate)} }}" formControlName="first_name" required>
+            <mat-icon matSuffix>text_fields</mat-icon>
+            <mat-error *ngIf="requiredForm.controls['first_name'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.ATTR.FIRSTNAME'| translate)} }}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>{{'CLIENT.ATTR.EMAIL'| translate}}</mat-label>
+            <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.EMAIL'| translate)} }}" formControlName="email" required>
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="requiredForm.controls['email'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.ATTR.EMAIL'| translate)} }}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>{{'CLIENT.ATTR.PHONENUMBER'| translate}}</mat-label>
+            <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.PHONENUMBER'| translate)} }}" formControlName="phone_number" required>
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="requiredForm.controls['phone_number'].invalid">{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.PHONENUMBER'| translate)} }}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>{{'CLIENT.ATTR.EMERGENCYCONTACT'| translate}}</mat-label>
+            <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.EMERGENCYCONTACT'| translate)} }}" formControlName="emergency_contact" required>
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="requiredForm.controls['emergency_contact'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.ATTR.EMERGENCYCONTACT'| translate)} }}</mat-error>
+          </mat-form-field>
+        </form>
+      </mat-step>
+      <mat-step [label]="'step2'" [stepControl]="optionalForm">
+        <form [formGroup]="optionalForm">
+          <ng-template matStepLabel>{{"CLIENT.FORM.STEP2" | translate}}</ng-template>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>{{'CLIENT.ATTR.LASTNAME'| translate}}</mat-label>
+            <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.LASTNAME'| translate)} }}" formControlName="last_name">
+            <mat-icon matSuffix>text_fields</mat-icon>
+            <mat-error *ngIf="optionalForm.controls['last_name'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.ATTR.LASTNAME'| translate)} }}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>{{'CLIENT.ATTR.BIRTHDAY'| translate}}</mat-label>
+            <input matInput (click)="picker.open()" placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.BIRTHDAY'| translate)} }}" [matDatepicker]="picker" formControlName="birthday">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>{{'CLIENT.ATTR.SSN'| translate}}</mat-label>
+            <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.SSN'| translate)} }}" formControlName="ssn">
+            <mat-icon matSuffix>perm_identity</mat-icon>
+            <mat-error *ngIf="optionalForm.controls['ssn'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.ATTR.SSN'| translate)} }}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>{{'CLIENT.ATTR.ARN'| translate}}</mat-label>
+            <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.ARN'| translate)} }}" formControlName="arn">
+            <mat-icon matSuffix>perm_identity</mat-icon>
+            <mat-error *ngIf="optionalForm.controls['arn'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.ATTR.ARN'| translate)} }}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>{{'CLIENT.ATTR.ADDRESS'| translate}}</mat-label>
+            <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.ADDRESS'| translate)} }}" formControlName="address">
+            <mat-icon matSuffix>location_on</mat-icon>
+            <mat-error *ngIf="optionalForm.controls['address'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.ATTR.ADDRESS'| translate)} }}</mat-error>
+          </mat-form-field>
+        </form>
+      </mat-step>
+    </mat-vertical-stepper>
+  </ng-template>
+</div>
+
+

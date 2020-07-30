@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center h-100 align-items-center">
+<div class="d-flex justify-content-center align-items-center" style="height: calc(100vh - 16px)">
   <form action="" (submit)="signIn()" [formGroup]="form">
     <mat-card style="max-width: 400px">
       <mat-card-header class="pt-4">
@@ -8,17 +8,17 @@
       <mat-card-content>
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>{{'USER.ATTR.EMAIL' | translate}}</mat-label>
-          <input matInput placeholder="{{'PLACEHOLDER.EMAIL' | translate}}" required formControlName="email">
+          <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('USER.ATTR.EMAIL'| translate)} }}" required formControlName="email">
           <mat-icon matSuffix>email</mat-icon>
-          <mat-error *ngIf="form.controls['email'].invalid">{{'REQUIRED.EMAIL' | translate}}</mat-error>
+          <mat-error *ngIf="form.controls['email'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('USER.ATTR.EMAIL'| translate)} }}</mat-error>
         </mat-form-field>
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>{{'USER.ATTR.PASSWORD' | translate}}</mat-label>
-          <input matInput placeholder="{{'PLACEHOLDER.PASSWORD' | translate}}" [type]="hide ? 'password' : 'text'" required formControlName="password">
-          <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('USER.ATTR.PASSWORD'| translate)} }}" [type]="hidePassword ? 'password' : 'text'" required formControlName="password">
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
-          <mat-error *ngIf="form.controls['password'].invalid">{{'REQUIRED.PASSWORD' | translate}}</mat-error>
+          <mat-error *ngIf="form.controls['password'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('USER.ATTR.PASSWORD'| translate)} }}</mat-error>
         </mat-form-field>
         <div class="d-flex justify-content-center pt-2">
           <button mat-button mat-raised-button color="primary" [disabled]="processing$ | async" class="d-flex justify-content-center w-100" type="submit">
