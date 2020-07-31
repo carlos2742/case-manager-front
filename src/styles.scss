@@ -28,11 +28,17 @@ $case-manager-front-theme: mat-light-theme($case-manager-front-primary, $case-ma
 
 /* You can add global styles to this file, and also import other style files */
 
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,400i,600,700&display=swap');
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+.font-montserrat{
+  font-family: 'Montserrat' !important;
+}
 
 .mat-list-text>*, button:focus{
   outline: none;
@@ -46,11 +52,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-card-content{
   font-size: inherit;
 }
-.mat-list-base .mat-list-item.mat-list-item-disabled{
-  background-color: transparent;
-  color: gray;
-  &:focus{
-    outline: none;
+.mat-list-base .mat-list-item{
+  color: #696969;
+  &.mat-list-item-disabled{
+    background-color: transparent;
+    color: #acacac;
+    &:focus{
+      outline: none;
+    }
   }
 }
 .mat-list-single-selected-option{

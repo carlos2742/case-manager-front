@@ -1,13 +1,13 @@
 <mat-drawer-container style="min-height: 100vh">
   <mat-drawer mode="side" opened="{{open}}">
     <div class="mt-3 ml-4 mr-4">
-      <h5 class="text-center mb-3">Case Managment</h5>
+      <h5 class="text-center mb-3 font-montserrat">Case Managment</h5>
       <mat-divider></mat-divider>
       <mat-selection-list [multiple]="false">
         <div *ngFor="let option of options">
           <div *isAllow="option.allowed">
-            <div class="mt-1" mat-subheader>{{option.header | uppercase}}</div>
-            <mat-list-option *ngFor="let element of option.elements" [value]="element" [disabled]="element.disabled" [selected]="element.selected">
+            <div class="mt-1 font-montserrat" mat-subheader>{{option.header | translate | uppercase}}</div>
+            <mat-list-option class="font-montserrat" *ngFor="let element of option.elements" [value]="element" [disabled]="element.disabled" [selected]="element.selected">
               <div class="d-flex align-items-center" routerLink="{{element.url}}">
                 <mat-icon>{{element.icon}}</mat-icon>
                 <span class="ml-4">{{element.name | translate}}</span>

@@ -15,6 +15,7 @@ import {StoreModule} from "@ngrx/store";
 import {EffectsModule} from "@ngrx/effects";
 import { reducers, effects } from './store';
 import { IsAllowDirective } from './directives/is-allow/is-allow.directive';
+import { NotFoundComponent } from '../admin/components/not-found/not-found.component';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { UnauthorizedComponent } from './components/unauthorized/unauthorized.co
     ClientComponent,
     UserComponent,
     IsAllowDirective,
+    NotFoundComponent,
     UnauthorizedComponent
   ],
   imports: [

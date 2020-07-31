@@ -33,7 +33,11 @@ const routes: Routes = [
       },
       {
         path: '401',
-        component: UnauthorizedComponent
+        component: UnauthorizedComponent,
+        canActivate: [GuardService],
+        data: {
+          roles: [USER_ROLES.ADMIN, USER_ROLES.DEVELOPER, USER_ROLES.COLLABORATOR]
+        }
       }
     ]
   }

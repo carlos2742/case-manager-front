@@ -4,7 +4,7 @@ import * as AdminStore from "./store";
 import {Store} from "@ngrx/store";
 import {Subscription} from "rxjs";
 import {NavigationEnd, Router} from "@angular/router";
-import {IUser, USER_ROLES} from "./models/admin.models";
+import {USER_ROLES} from "./models/admin.models";
 import {filter} from "rxjs/operators";
 
 interface IOption{
@@ -31,7 +31,6 @@ export class AdminComponent implements OnInit, OnDestroy {
   public open: boolean;
   public options: Array<IOption>;
 
-  private _loggedUser: IUser;
   private _subscriptions: Array<Subscription>;
 
   constructor(private _store: Store<AdminStore.AdminState>, private _translate: TranslateService, public _router: Router) {
@@ -85,7 +84,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   private _createMenu(){
     this.options = [
       {
-        header: 'Administrator',
+        header: 'ROLES.1',
         allowed:[
           USER_ROLES.ADMIN,
           USER_ROLES.DEVELOPER
@@ -127,7 +126,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         ]
       },
       {
-        header: 'Collaborator',
+        header: 'ROLES.2',
         allowed:[
           USER_ROLES.COLLABORATOR,
           USER_ROLES.ADMIN,

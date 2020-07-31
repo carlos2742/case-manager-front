@@ -16,8 +16,8 @@
       "ARN": "Alien Registration Number"
     },
     "FORM": {
-      "STEP1": "Required Fields",
-      "STEP2": "Optional Fields"
+      "STEP1": "Required Information",
+      "STEP2": "Optional Information"
     },
     "NOTIFICATIONS": {
       "SUCCESS": {
@@ -88,7 +88,8 @@
     "DELETE": "Delete {{entity}}",
     "CLOSE": "Close",
     "SIGN_IN": "Sign In",
-    "SIGN_OUT": "Sign Out"
+    "SIGN_OUT": "Sign Out",
+    "NEXT": "Next"
   },
   "FORM": {
     "ERROR": {
@@ -102,5 +103,7 @@
   "NOTIFICATIONS":{
     "UNREGISTERED_USER": "User not registered",
     "WRONG_CREDENTIALS": "Incorrect Email/Password"
-  }
+  },
+  "401": "Authorization required",
+  "404": "Sorry, page not Found"
 }
