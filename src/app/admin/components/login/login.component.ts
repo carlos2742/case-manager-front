@@ -1,26 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import {Apollo} from "apollo-angular";
-import gql from "graphql-tag";
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthenticationService} from "../../services/auth/authentication.service";
+import {Store} from "@ngrx/store";
+import * as AdminStore from "../../store";
+import {Router} from "@angular/router";
+import {Observable, Subscription} from "rxjs";
+import {NotificationComponent} from "../../../shared/components/notification/notification.component";
+import {NotificationService} from "../../../shared/services/notification/notification.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy{
 
   public form: FormGroup;
+  public hidePassword:boolean;
 
-  constructor(private auth: AuthenticationService, private formBuilder: FormBuilder) {
-    this.initializeForm();
+  public processing$: Observable<boolean>;
+
+  private _subscriptions: Array<Subscription>;
+
+  constructor(private _store: Store<AdminStore.AdminState>, private _formBuilder: FormBuilder, private _router: Router) {
+    this.hidePassword = true;
+    this._subscriptions = new Array<Subscription>();
+
+    this.processing$ = _store.select(AdminStore.isSignInProcessing);
+
+    this._initializeForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let successSubs = this._store.select(AdminStore.isSignInSuccess).subscribe(success => {
+      if(success) this._router.navigateByUrl('admin/clients');
+    });
+    this._subscriptions.push(successSubs);
+  }
 
-  private initializeForm(){
-    this.form = this.formBuilder.group({
+  ngOnDestroy(): void {
+    this._subscriptions.forEach(subscrition => {
+      subscrition.unsubscribe();
+    })
+  }
+
+  private _initializeForm(){
+    this.form = this._formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
     });
@@ -28,14 +52,6 @@ export class LoginComponent implements OnInit {
 
   public signIn(){
     const payload = this.form.value;
-    this.auth.signIn(payload).subscribe(response =>{
-      localStorage.setItem('AUTH_TOKEN',response['authenticationToken']);
-    });
-  }
-
-  public signOut(){
-    this.auth.signOut().subscribe(response => {
-      localStorage.removeItem('AUTH_TOKEN');
-    })
+    this._store.dispatch(new AdminStore.SignIn(payload));
   }
 }

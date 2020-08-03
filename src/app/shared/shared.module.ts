@@ -12,23 +12,42 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {HttpClient} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatListModule} from '@angular/material/list';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { NotificationComponent } from './components/notification/notification.component';
+import {NotificationService} from "./services/notification/notification.service";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [TableComponent],
+  declarations: [TableComponent, NotificationComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-
     MatTableModule,
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
     MatCardModule,
     MatTooltipModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatListModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatStepperModule,
+    MatSnackBarModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
@@ -46,10 +65,20 @@ export function createTranslateLoader(http: HttpClient) {
     MatSelectModule,
     MatCardModule,
     MatTooltipModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatListModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatStepperModule,
+    MatSnackBarModule,
     TranslateModule
   ],
   providers:[
-    GraphqlService
+    GraphqlService,
+    NotificationService
   ]
 })
 export class SharedModule { }

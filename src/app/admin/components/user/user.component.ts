@@ -1,14 +1,12 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {UserService} from "../../services/user/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DIALOG_ACTION_TYPE} from "../client/client.component";
+import * as AdminStore from '../../store';
+import {Store} from "@ngrx/store";
+import {Observable} from "rxjs";
+import {USER_ROLES} from "../../models/admin.models";
 
-enum USER_ROLES{
-  DEVELOPER,
-  ADMIN,
-  COLLABORATOR
-}
 
 @Component({
   selector: 'app-user',
@@ -19,37 +17,37 @@ export class UserComponent implements OnInit {
 
   @ViewChild('template',{static: false})
   template: TemplateRef<any>;
-  data: any;
-  displayedColumns: string[] = [
-    'name',
-    'email',
-    'rol',
-    'actions'];
+  data$: Observable<any>;
+  displayedColumns: Array<string>;
 
   form: FormGroup;
 
   public DIALOG_ACTION_TYPE;
   public USER_ROLES;
 
-  public dialogTitle: String;
+  public dialogTitle: string;
   public dialogActionType: DIALOG_ACTION_TYPE;
-                      public dialogMainActionName: string;
+  public dialogMainActionName: string;
   public dialogMainAction: Function;
 
-  constructor(private user: UserService, public dialog: MatDialog, private formBuilder: FormBuilder) {
+  constructor(private store: Store<AdminStore.AdminState>, public dialog: MatDialog, private formBuilder: FormBuilder) {
     this.DIALOG_ACTION_TYPE = DIALOG_ACTION_TYPE;
     this.USER_ROLES = USER_ROLES;
-    this.user.all.subscribe(response => {
-      this.data = response;
-    });
+    this.displayedColumns = [
+      'name',
+      'email',
+      'rol',
+      'options'];
+    this.data$ = this.store.select(AdminStore.allUsers);
   }
 
   ngOnInit(): void {
+    this.store.dispatch(new AdminStore.LoadUsers({}));
     this.initializeForm();
   }
 
   openCreateDialog(){
-    this.dialogTitle = 'Create User';
+    this.dialogTitle = 'ACTIONS.CREATE';
     this.dialogMainActionName = 'ACTIONS.CREATE';
     this.dialogActionType = DIALOG_ACTION_TYPE.CREATE;
     this.dialogMainAction = () => this.createUser();
@@ -75,32 +73,22 @@ export class UserComponent implements OnInit {
 
   createUser(){
     const payload = this.form.value;
-    this.user.register(payload).subscribe(response =>{
-      const element = response;
-      this.data = this.data.concat([element]);
-    });
+    this.store.dispatch(new AdminStore.RegisterUser(payload));
   }
 
   deleteUser(id){
     const payload = id;
-    this.user.delete(payload).subscribe(response =>{
-      const element = response;
-      this.data = this.data.filter(item => item.id !== element.id);
-    });
+    this.store.dispatch(new AdminStore.DeleteUser(payload));
   }
 
   updateUser(element){
     const payload = Object.assign({id: element.id}, this.form.value);
-    this.user.update(payload).subscribe( response =>{
-      const element = response;
-      const index = this.data.findIndex(item => item.id === element.id);
-      this.data.splice(index,1,element);
-    });
+    this.store.dispatch(new AdminStore.UpdateUser(payload));
   }
 
   private openDialog(): void {
     const dialogRef = this.dialog.open(this.template, {
-      width: 'auto'
+      width: '500px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -14,24 +14,96 @@
       "EMERGENCYCONTACT": "Emergency Contact",
       "SSN": "Social Security Number",
       "ARN": "Alien Registration Number"
+    },
+    "FORM": {
+      "STEP1": "Required Information",
+      "STEP2": "Optional Information"
+    },
+    "NOTIFICATIONS": {
+      "SUCCESS": {
+        "CREATE": "The client was successfully created",
+        "EDIT": "The client was successfully edited",
+        "DELETE": "The client was successfully deleted"
+      },
+      "FAIL": {
+        "CREATE": "The client could not be created",
+        "EDIT": "The client could not be edited",
+        "DELETE": "The client could not be deleted"
+      }
     }
+  },
+  "ROLES": {
+    "0": "Developer",
+    "1": "Administrator",
+    "2": "Collaborator"
   },
   "USER": {
     "LABEL": {
-      "SINGULAR": "Users",
-      "PLURAL": "User"
+      "SINGULAR": "User",
+      "PLURAL": "Users"
     },
     "ATTR": {
       "NAME": "Name",
       "EMAIL": "Email",
+      "PASSWORD": "Password",
       "ROL": "Rol"
+    },
+    "NOTIFICATIONS": {
+      "SUCCESS": {
+        "CREATE": "The user was successfully created",
+        "EDIT": "The user was successfully edited",
+        "DELETE": "The user was successfully deleted"
+      },
+      "FAIL": {
+        "CREATE": "The user could not be created",
+        "EDIT": "The user could not be edited",
+        "DELETE": "The user could not be deleted"
+      }
     }
+  },
+  "DOCUMENT": {
+    "LABEL": {
+      "SINGULAR": "Documents",
+      "PLURAL": "Document"
+    },
+    "ATTR": {
+
+    }
+  },
+  "BILLING": {
+    "LABEL": {
+      "SINGULAR": "Billing"
+    },
+    "ATTR": {
+
+    }
+  },
+  "AUTH": {
+    "LABEL": "Sign in to your account"
   },
   "ACTIONS": {
     "LABEL": "Options",
-    "CREATE": "Create",
-    "UPDATE": "Update",
-    "DELETE": "Delete",
-    "CLOSE": "Close"
-  }
+    "CREATE": "Add {{entity}}",
+    "UPDATE": "Update {{entity}}",
+    "DELETE": "Delete {{entity}}",
+    "CLOSE": "Close",
+    "SIGN_IN": "Sign In",
+    "SIGN_OUT": "Sign Out",
+    "NEXT": "Next"
+  },
+  "FORM": {
+    "ERROR": {
+      "REQUIRED": "{{attr}} required"
+    },
+    "PLACEHOLDER": "Enter {{attr}}"
+  },
+  "MESSAGE": {
+    "DELETE": "Do you want to delete the {{entity}} ?"
+  },
+  "NOTIFICATIONS":{
+    "UNREGISTERED_USER": "User not registered",
+    "WRONG_CREDENTIALS": "Incorrect Email/Password"
+  },
+  "401": "Authorization required",
+  "404": "Sorry, page not Found"
 }

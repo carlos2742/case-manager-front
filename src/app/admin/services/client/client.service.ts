@@ -47,21 +47,36 @@ export class ClientService extends BaseService{
           mutation createClient(
             $email: String!
             $first_name: String!
+            $last_name: String!
+            $birthday: String!
+            $address: String!
+            $ssn: String!
+            $arn: String!
             $phone_number: String!
             $emergency_contact: String!
           ){
             createClient(input:{
               email: $email
               firstName: $first_name
+              lastName: $last_name
+              birthday: $birthday
+              address: $address
+              ssn: $ssn
+              arn: $arn
               phoneNumber: $phone_number
               emergencyContact: $emergency_contact
             }){
             client{
                 id
                 firstName
-                emergencyContact
+                lastName
                 email
+                birthday
+                address
                 phoneNumber
+                emergencyContact
+                ssn
+                arn
               }
             }
           }`;
@@ -88,6 +103,11 @@ export class ClientService extends BaseService{
             $id: ID!
             $email: String!
             $first_name: String!
+            $last_name: String!
+            $birthday: String!
+            $address: String!
+            $ssn: String!
+            $arn: String!
             $phone_number: String!
             $emergency_contact: String!
           ) {
@@ -95,15 +115,25 @@ export class ClientService extends BaseService{
               id: $id
               email: $email
               firstName: $first_name
+              lastName: $last_name
+              birthday: $birthday
+              address: $address
+              ssn: $ssn
+              arn: $arn
               phoneNumber: $phone_number
               emergencyContact: $emergency_contact
             }) {
               client {
                 id
                 firstName
-                emergencyContact
+                lastName
                 email
+                birthday
+                address
                 phoneNumber
+                emergencyContact
+                ssn
+                arn
               }
               success
               errors

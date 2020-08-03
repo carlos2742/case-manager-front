@@ -1,11 +1,16 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {USER_ROLES} from "../../../admin/models/admin.models";
+import * as AdminStore from "../../../admin/store";
+import {Store} from "@ngrx/store";
+import {Subscription} from "rxjs";
+
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit{
 
   @Input() entity: String;
   @Input() dataSource;
@@ -13,13 +18,12 @@ export class TableComponent implements OnInit {
   @Output() updateEvent: EventEmitter<object>;
   @Output() deleteEvent: EventEmitter<String>;
 
-
   constructor() {
     this.updateEvent = new EventEmitter<object>();
     this.deleteEvent = new EventEmitter<String>();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   /**
    * Edit callback function
@@ -36,7 +40,7 @@ export class TableComponent implements OnInit {
   }
 
   get displayColumnFilter(){
-    return this.displayedColumns.length > 0 ? this.displayedColumns.filter(item => item !== 'actions') : [];
+    return this.displayedColumns.length > 0 ? this.displayedColumns.filter(item => item !== 'options') : [];
   }
 
   getLanguageKeyColumn(column){
