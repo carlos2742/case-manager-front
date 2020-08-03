@@ -7,7 +7,7 @@ export async function createApollo(httpLink: HttpLink) {
   const response = await fetch(window.location.origin + '/backend');
   const variable = await response.json();
   console.log(variable);
-  const uri = variable.url; // <-- add the URL of the GraphQL server here
+  const uri = `${variable.url}graphql`; // <-- add the URL of the GraphQL server here
   return {
     link: httpLink.create({uri}),
     cache: new InMemoryCache(),
