@@ -1,9 +1,9 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import * as AdminStore from '../../store';
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {MatStepper} from "@angular/material/stepper";
 import {USER_ROLES} from "../../../admin/models/admin.models";
 
@@ -18,7 +18,7 @@ export enum DIALOG_ACTION_TYPE{
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.scss']
 })
-export class ClientComponent implements OnInit {
+export class ClientComponent implements OnInit, OnDestroy {
 
   @ViewChild('template',{static: false})
   template: TemplateRef<any>;
@@ -43,6 +43,8 @@ export class ClientComponent implements OnInit {
   public dialogMainActionName: string;
   public dialogMainAction: Function;
 
+  private _subscription: Subscription;
+
   constructor(private store: Store<AdminStore.AdminState>, public dialog: MatDialog, private formBuilder: FormBuilder) {
     this.DIALOG_ACTION_TYPE = DIALOG_ACTION_TYPE;
     this.USER_ROLES = USER_ROLES;
@@ -63,8 +65,16 @@ export class ClientComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new AdminStore.LoadClients({}));
-
+    this._subscription = this.store.select(AdminStore.loggedUser).subscribe(loggedUser => {
+      if(loggedUser && loggedUser.rol === USER_ROLES.COLLABORATOR){
+        this.displayedColumns = this.displayedColumns.filter(item => item !== 'options')
+      }
+    });
     this._initializeForm();
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 
   public openCreateDialog(){

@@ -10,7 +10,7 @@ import {Subscription} from "rxjs";
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit, OnDestroy {
+export class TableComponent implements OnInit{
 
   @Input() entity: String;
   @Input() dataSource;
@@ -18,24 +18,12 @@ export class TableComponent implements OnInit, OnDestroy {
   @Output() updateEvent: EventEmitter<object>;
   @Output() deleteEvent: EventEmitter<String>;
 
-  private _subscription: Subscription;
-
-  constructor(private store: Store<AdminStore.AdminState>) {
+  constructor() {
     this.updateEvent = new EventEmitter<object>();
     this.deleteEvent = new EventEmitter<String>();
   }
 
-  ngOnInit(): void {
-    this._subscription = this.store.select(AdminStore.loggedUser).subscribe(loggedUser => {
-      if(loggedUser && loggedUser.rol === USER_ROLES.COLLABORATOR){
-        this.displayedColumns = this.displayedColumns.filter(item => item !== 'options')
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    this._subscription.unsubscribe();
-  }
+  ngOnInit(): void { }
 
   /**
    * Edit callback function
