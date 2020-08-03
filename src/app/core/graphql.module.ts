@@ -2,10 +2,12 @@ import {NgModule} from '@angular/core';
 import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
 import {HttpLinkModule, HttpLink} from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
-import {environment} from "../../environments/environment";
 
-export function createApollo(httpLink: HttpLink) {
-  const uri = environment.graphqlApiUri; // <-- add the URL of the GraphQL server here
+export async function createApollo(httpLink: HttpLink) {
+  const response = await fetch(window.location.origin + '/backend');
+  const variable = await response.json();
+  console.log(variable);
+  const uri = variable.url; // <-- add the URL of the GraphQL server here
   return {
     link: httpLink.create({uri}),
     cache: new InMemoryCache(),
