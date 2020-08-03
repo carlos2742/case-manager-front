@@ -4,9 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "start:heroku": "node server.js",
+    "build": "ng build --aot --prod --output-hashing bundles",
     "test": "ng test",
     "lint": "ng lint",
+    "postinstall": "npm run build",
     "e2e": "ng e2e"
   },
   "private": true,
@@ -35,6 +37,9 @@
     "apollo-link": "^1.2.11",
     "apollo-link-context": "^1.0.20",
     "bootstrap": "^4.4.0",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "express-force-https": "^1.0.0",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.0",
     "rxjs": "~6.5.4",
