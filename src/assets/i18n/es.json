@@ -1,0 +1,109 @@
+{
+  "CLIENT":{
+    "LABEL": {
+      "SINGULAR": "Cliente",
+      "PLURAL": "Clientes"
+    },
+    "ATTR": {
+      "FIRSTNAME": "Nombre",
+      "LASTNAME": "Apellidos",
+      "EMAIL": "Correo",
+      "ADDRESS": "Dirección",
+      "BIRTHDAY": "Fecha de Nacimiento",
+      "PHONENUMBER": "Teléfono",
+      "EMERGENCYCONTACT": "Contacto de Emergencia",
+      "SSN": "No. Seguridad Social",
+      "ARN": "No. Registro Extranjero"
+    },
+    "FORM": {
+      "STEP1": "Información requerida",
+      "STEP2": "Información opcional"
+    },
+    "NOTIFICATIONS": {
+      "SUCCESS": {
+        "CREATE": "El cliente se creó satisfactoriamente",
+        "EDIT": "El cliente se editó satisfactoriamente",
+        "DELETE": "El cliente se eliminó satisfactoriamente"
+      },
+      "FAIL": {
+        "CREATE": "El cliente no pudo ser creado",
+        "EDIT": "El cliente no pudo ser editado",
+        "DELETE": "El cliente no pudo ser eliminado"
+      }
+    }
+  },
+  "ROLES": {
+    "0": "Desarrollador",
+    "1": "Administrador",
+    "2": "Colaborador"
+  },
+  "USER": {
+    "LABEL": {
+      "SINGULAR": "Usuario",
+      "PLURAL": "Usuarios"
+    },
+    "ATTR": {
+      "NAME": "Nombre",
+      "EMAIL": "Correo",
+      "PASSWORD": "Contraseña",
+      "ROL": "Rol"
+    },
+    "NOTIFICATIONS": {
+      "SUCCESS": {
+        "CREATE": "El usuario se creó satisfactoriamente",
+        "EDIT": "El usuario se editó satisfactoriamente",
+        "DELETE": "El usuario se eliminó satisfactoriamente"
+      },
+      "FAIL": {
+        "CREATE": "El usuario no pudo ser creado",
+        "EDIT": "El usuario no pudo ser editado",
+        "DELETE": "El usuario no pudo ser eliminado"
+      }
+    }
+  },
+  "DOCUMENT": {
+    "LABEL": {
+      "SINGULAR": "Documento",
+      "PLURAL": "Documentos"
+    },
+    "ATTR": {
+
+    }
+  },
+  "BILLING": {
+    "LABEL": {
+      "SINGULAR": "Facturación"
+    },
+    "ATTR": {
+
+    }
+  },
+  "AUTH": {
+    "LABEL": "Ingrese su cuenta"
+  },
+  "ACTIONS": {
+    "LABEL": "Opciones",
+    "CREATE": "Adicionar",
+    "UPDATE": "Actualizar",
+    "DELETE": "Eliminar",
+    "CLOSE": "Cerrar",
+    "SIGN_IN": "Iniciar Sesión",
+    "SIGN_OUT": "Salir",
+    "NEXT": "Siguente"
+  },
+  "FORM": {
+    "ERROR": {
+      "REQUIRED": "{{attr}} requerido"
+    },
+    "PLACEHOLDER": "Ingrese {{attr}}"
+  },
+  "MESSAGE": {
+    "DELETE": "Desea eliminar el {{entity}} ?"
+  },
+  "NOTIFICATIONS":{
+    "UNREGISTERED_USER": "Usuario no registrado",
+    "WRONG_CREDENTIALS": "Correo/Contraseña incorrecto"
+  },
+  "401": "Autorización requerida",
+  "404": "Lo sentimos, no se encontro la página"
+}
