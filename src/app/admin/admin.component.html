@@ -1,7 +1,7 @@
 <mat-drawer-container style="min-height: 100vh">
   <mat-drawer mode="side" opened="{{open}}">
     <div class="mt-3 ml-4 mr-4">
-      <h5 class="text-center mb-3 font-montserrat">Case Managment</h5>
+      <h5 class="text-center mb-3 font-montserrat">Case Manager</h5>
       <mat-divider></mat-divider>
       <mat-selection-list [multiple]="false">
         <div *ngFor="let option of options">
@@ -26,9 +26,9 @@
           <mat-icon>account_circle</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
+          <button mat-menu-item [disabled]="true">
             <mat-icon>settings</mat-icon>
-            <span>Account</span>
+            <span>{{'ACTIONS.ACCOUNT' | translate}}</span>
           </button>
           <button mat-menu-item (click)="signOut()">
             <mat-icon>exit_to_app</mat-icon>

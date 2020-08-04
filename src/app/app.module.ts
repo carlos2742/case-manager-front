@@ -11,9 +11,13 @@ import {HttpClient} from "@angular/common/http";
 
 function initApp(http: HttpClient){
   return (): Promise<any> =>{
-   return http.get(window.location.origin + '/backend')
+    return http.get(window.location.origin + '/backend')
       .toPromise()
-      .then(response => {localStorage.setItem('API_URL',response['url'])});
+      .then(response => {localStorage.setItem('API_URL',response['url'])})
+      .catch(error =>{
+        console.log(error);
+        localStorage.setItem('API_URL','http://localhost:3000/');
+      });
   };
 }
 
