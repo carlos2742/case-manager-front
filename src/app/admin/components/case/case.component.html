@@ -1,0 +1,108 @@
+<div class="sub-tool-bar mb-5">
+  <div class="pt-1 pb-1 pl-5 pr-5 d-flex justify-content-between align-items-center">
+    <div class="d-flex pt-2 pb-2 font-montserrat">
+      <mat-icon class="mr-2">business_center</mat-icon>
+      <span>{{'CASE.LABEL.PLURAL' | translate}}</span>
+    </div>
+    <div>
+      <button
+        *isAllow="[USER_ROLES.DEVELOPER, USER_ROLES.ADMIN]"
+        mat-icon-button
+        color="primary"
+        matTooltip="{{'ACTIONS.CREATE' | translate:{entity: ('CASE.LABEL.SINGULAR' | translate)} }}"
+        matTooltipPosition="right"
+        (click)="openCreateDialog()">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="pl-5 pr-5 pb-5">
+  <div class="mt-3">
+    <app-table
+      [dataSource]="data$ | async"
+      [entity]="'CASE'"
+      [displayedColumns]="displayedColumns"
+      (updateEvent)="openUpdateDialog($event)"
+      (deleteEvent)="openDeleteDialog($event)"
+    ></app-table>
+  </div>
+
+  <ng-template #template>
+    <div mat-dialog-title>{{dialogTitle | translate:{entity: ('CASE.LABEL.SINGULAR' | translate)} }}</div>
+    <hr class="mt-0 mb-4">
+    <div mat-dialog-content>
+      <ng-container *ngIf="dialogActionType === DIALOG_ACTION_TYPE.REMOVE" [ngTemplateOutlet]="removeTemplate"></ng-container>
+      <ng-container *ngIf="dialogActionType !== DIALOG_ACTION_TYPE.REMOVE" [ngTemplateOutlet]="formTemplate"></ng-container>
+    </div>
+    <hr>
+    <div mat-dialog-actions class="d-flex justify-content-end pb-3">
+      <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="dialogMainAction()">{{dialogMainActionName | translate:{entity: ''} }}</button>
+      <button mat-raised-button mat-dialog-close>{{'ACTIONS.CLOSE' | translate}}</button>
+    </div>
+  </ng-template>
+
+  <ng-template #removeTemplate>
+    <div>{{"MESSAGE.DELETE" | translate:{entity: ('CASE.LABEL.SINGULAR'| translate | lowercase)} }}</div>
+  </ng-template>
+  <ng-template #formTemplate>
+    <div [formGroup]="form">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>{{'CLIENT.LABEL.SINGULAR'| translate}}</mat-label>
+        <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CASE.ATTR.NAME'| translate)} }}" formControlName="client_id" [matAutocomplete]="auto">
+        <mat-icon matSuffix class="mr-2">person</mat-icon>
+        <mat-error *ngIf="form.controls['client_id'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.LABEL.SINGULAR'| translate)} }}</mat-error>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let client of clients | async" [value]="client">
+            {{client.firstName}} {{client.lastName}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>{{'CASE.ATTR.NAME'| translate}}</mat-label>
+        <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CASE.ATTR.NAME'| translate)} }}" formControlName="name">
+        <mat-icon matSuffix class="mr-2">title</mat-icon>
+        <mat-error *ngIf="form.controls['name'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CASE.ATTR.NAME'| translate)} }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>{{'CASE.ATTR.NUMBER'| translate}}</mat-label>
+        <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CASE.ATTR.NUMBER'| translate)} }}" formControlName="number">
+        <mat-icon matSuffix class="mr-2">title</mat-icon>
+        <mat-error *ngIf="form.controls['number'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CASE.ATTR.NUMBER'| translate)} }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>{{'CASE.ATTR.DESCRIPTION'| translate}}</mat-label>
+        <textarea matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CASE.ATTR.DESCRIPTION'| translate)} }}" formControlName="description"></textarea>
+        <mat-error *ngIf="form.controls['description'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CASE.ATTR.DESCRIPTION'| translate)} }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>{{'FORM.SELECT_PLACEHOLDER' | translate:{attr:('CASE.ATTR.STAGE' | translate)} }}</mat-label>
+        <mat-select formControlName="stage">
+          <mat-option [value]="CASE_STAGES.DISCOVERY">{{'CASE.STAGES.0' | translate}}</mat-option>
+          <mat-option [value]="CASE_STAGES.IN_TRIAL">{{'CASE.STAGES.1' | translate}}</mat-option>
+          <mat-option [value]="CASE_STAGES.ON_HOLD">{{'CASE.STAGES.2' | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>{{'FORM.SELECT_PLACEHOLDER' | translate:{attr:('CASE.ATTR.PRACTICEAREA' | translate)} }}</mat-label>
+        <mat-select formControlName="practice_area">
+          <mat-option [value]="PRACTICE_AREAS.INJURIES">{{'PRACTICE_AREA.0' | translate}}</mat-option>
+          <mat-option [value]="PRACTICE_AREAS.IMMIGRATION">{{'PRACTICE_AREA.1' | translate}}</mat-option>
+          <mat-option [value]="PRACTICE_AREAS.FAMILY">{{'PRACTICE_AREA.2' | translate}}</mat-option>
+          <mat-option [value]="PRACTICE_AREAS.WILLS">{{'PRACTICE_AREA.3' | translate}}</mat-option>
+          <mat-option [value]="PRACTICE_AREAS.FORECLOSURE">{{'PRACTICE_AREA.4' | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>{{'FORM.SELECT_PLACEHOLDER' | translate:{attr:('CASE.ATTR.BILLINGMETHOD' | translate)} }}</mat-label>
+        <mat-select formControlName="billing_method">
+          <mat-option [value]="BILLING_METHODS.HOURLY">{{'BILLING.METHODS.0' | translate}}</mat-option>
+          <mat-option [value]="BILLING_METHODS.CONTINGENCY">{{'BILLING.METHODS.1' | translate}}</mat-option>
+          <mat-option [value]="BILLING_METHODS.FLAT_FEE">{{'BILLING.METHODS.2' | translate}}</mat-option>
+          <mat-option [value]="BILLING_METHODS.PRO_BONO">{{'BILLING.METHODS.3' | translate}}</mat-option>
+          <mat-option [value]="BILLING_METHODS.FLAT_FEE_HOURLY">{{'BILLING.METHODS.4' | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </ng-template>
+</div>

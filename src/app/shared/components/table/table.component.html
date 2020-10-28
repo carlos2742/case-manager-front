@@ -5,8 +5,7 @@
     <ng-container matColumnDef="{{column}}">
       <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:10%;">{{getLanguageKeyColumn(column) | translate}}</th>
       <td mat-cell *matCellDef="let element" style="width:10%;" class="pr-2">
-        <span *ngIf="column !== 'rol'">{{element[column]}}</span>
-        <span *ngIf="column === 'rol'">{{'ROLES.'+element[column] | translate}}</span>
+          <span>{{getColumnValue(column,element) | translate}}</span>
       </td>
     </ng-container>
   </ng-container>

@@ -5,38 +5,36 @@ import {BaseService} from "../base.service";
 import {tap} from "rxjs/operators";
 import {IUser} from "../../models/admin.models";
 import {Observable} from "rxjs";
-
-enum ENTITY {
-  USER = 'user',
-  LOGGED_USER = 'loggedUser'
-}
-
-enum MUTATION{
-  SIGN_IN = 'signIn',
-  SIGN_OUT = 'signOut'
-}
+import {DocumentNode} from "graphql";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService extends BaseService{
 
-  private currentUser: IUser;
+  private _currentUser: IUser;
+
+  private readonly _entityLoggedName: string;
+  private readonly _mutationSignInName: string;
+  private readonly _mutationSignOutName: string;
+
+  private _currentUserQuery: DocumentNode;
+  private _signInMutation: DocumentNode;
+  private _signOutMutation: DocumentNode;
 
   constructor(private graphql: GraphqlService) {
     super();
-    this.currentUser = null;
+    this._currentUser = null;
+
+    this._entityName = 'user';
+    this._entityLoggedName = 'loggedUser';
+    this._mutationSignInName = 'signIn';
+    this._mutationSignOutName = 'signOut';
   }
 
-  get loggedUser(){
-    if(this.currentUser){
-      return new Observable(observer =>{
-        observer.next(this.currentUser);
-        observer.complete();
-      })
-    }
-
-    this.query = gql`
+  protected _initializeQM(){
+    super._initializeQM();
+    this._currentUserQuery = gql`
           {
             loggedUser{
               id
@@ -46,13 +44,7 @@ export class AuthenticationService extends BaseService{
               authenticationToken
             }
           }`;
-    return this.graphql.query(this.query).pipe(
-      this.extractQueryResponseData(ENTITY.LOGGED_USER),
-      tap(response => this.setData(response)));
-  }
-
-  public signIn(payload){
-    this.mutation = gql`
+    this._signInMutation = gql`
           mutation signIn($email: String!, $password: String!) {
             signIn(input: { email: $email, password: $password }) {
               user {
@@ -66,13 +58,7 @@ export class AuthenticationService extends BaseService{
               errors
             }
           }`;
-    return this.graphql.mutate(this.mutation,payload).pipe(
-      this.extractMutationResponseData(MUTATION.SIGN_IN, ENTITY.USER),
-      tap(response => this.setData(response)));
-  }
-
-  public signOut(){
-    this.mutation = gql`
+    this._signOutMutation = gql`
           mutation signOut {
             signOut(input: {}) {
               user {
@@ -83,19 +69,41 @@ export class AuthenticationService extends BaseService{
               errors
             }
           }`;
-    return this.graphql.mutate(this.mutation).pipe(
-      this.extractMutationResponseData(MUTATION.SIGN_OUT, ENTITY.USER),
-      tap(()=> this.clearData()));
   }
 
-  private setData(user: IUser){
-    this.currentUser = user;
-    localStorage.setItem('AUTH_TOKEN',this.currentUser.authenticationToken);
+  get loggedUser(){
+    if(this._currentUser){
+      return new Observable(observer =>{
+        observer.next(this._currentUser);
+        observer.complete();
+      })
+    }
+
+    return this.graphql.query(this._currentUserQuery).pipe(
+      this._extractQueryResponseData(this._entityLoggedName),
+      tap(response => this._setData(response)));
   }
 
-  private clearData(){
+  public signIn(payload){
+    return this.graphql.mutate(this._signInMutation,payload).pipe(
+      this._extractMutationResponseData(this._mutationSignInName, this._entityName),
+      tap(response => this._setData(response)));
+  }
+
+  public signOut(){
+    return this.graphql.mutate(this._signOutMutation).pipe(
+      this._extractMutationResponseData(this._mutationSignOutName, this._entityName),
+      tap(()=> this._clearData()));
+  }
+
+  private _setData(user: IUser){
+    this._currentUser = user;
+    localStorage.setItem('AUTH_TOKEN',this._currentUser.authenticationToken);
+  }
+
+  private _clearData(){
     localStorage.removeItem('AUTH_TOKEN');
-    this.currentUser = null;
+    this._currentUser = null;
     this.graphql.clearStore();
   }
 }

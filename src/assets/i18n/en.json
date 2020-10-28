@@ -37,6 +37,11 @@
     "1": "Administrator",
     "2": "Collaborator"
   },
+  "TITLES": {
+    "0": "Attorney",
+    "1": "Paralegal",
+    "2": "Staff"
+  },
   "USER": {
     "LABEL": {
       "SINGULAR": "User",
@@ -46,7 +51,8 @@
       "NAME": "Name",
       "EMAIL": "Email",
       "PASSWORD": "Password",
-      "ROL": "Rol"
+      "ROL": "Rol",
+      "TITLE": "Title"
     },
     "NOTIFICATIONS": {
       "SUCCESS": {
@@ -58,6 +64,39 @@
         "CREATE": "The user could not be created",
         "EDIT": "The user could not be edited",
         "DELETE": "The user could not be deleted"
+      }
+    }
+  },
+  "CASE": {
+    "LABEL": {
+      "SINGULAR": "Case",
+      "PLURAL": "Cases"
+    },
+    "ATTR": {
+      "NAME": "Name",
+      "NUMBER": "Number",
+      "CLIENT": "Client",
+      "DESCRIPTION": "Description",
+      "STAGE": "Stage",
+      "PRACTICEAREA": "Practice Area",
+      "BILLINGMETHOD": "Billing Method",
+      "CREATEDAT": "Created"
+    },
+    "STAGES": {
+      "0": "Discovery",
+      "1": "In Trial",
+      "2": "On Hold"
+    },
+    "NOTIFICATIONS": {
+      "SUCCESS": {
+        "CREATE": "The case was successfully created",
+        "EDIT": "The case was successfully edited",
+        "DELETE": "The case was successfully deleted"
+      },
+      "FAIL": {
+        "CREATE": "The case could not be created",
+        "EDIT": "The case could not be edited",
+        "DELETE": "The case could not be deleted"
       }
     }
   },
@@ -76,7 +115,21 @@
     },
     "ATTR": {
 
+    },
+    "METHODS": {
+      "0": "Hourly",
+      "1": "Contingency",
+      "2": "Flat Fee",
+      "3": "Pro Bono",
+      "4": "Mix of Flat Fee and Hourly"
     }
+  },
+  "PRACTICE_AREA": {
+    "0": "Personal Injuries",
+    "1": "Immigration",
+    "2": "Family",
+    "3": "Wills and Probate",
+    "4": "Bankruptcy, Foreclosure, and Property Law"
   },
   "AUTH": {
     "LABEL": "Sign in to your account"
@@ -96,7 +149,8 @@
     "ERROR": {
       "REQUIRED": "{{attr}} required"
     },
-    "PLACEHOLDER": "Enter {{attr}}"
+    "PLACEHOLDER": "Enter {{attr}}",
+    "SELECT_PLACEHOLDER": "Choose a {{attr}}"
   },
   "MESSAGE": {
     "DELETE": "Do you want to delete the {{entity}} ?"
