@@ -50,21 +50,28 @@
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>{{'USER.ATTR.NAME'| translate}}</mat-label>
         <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('USER.ATTR.NAME'| translate)} }}" formControlName="name">
-        <mat-icon matSuffix>text_fields</mat-icon>
+        <mat-icon matSuffix class="mr-2">text_fields</mat-icon>
         <mat-error *ngIf="form.controls['name'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('USER.ATTR.NAME'| translate)} }}</mat-error>
       </mat-form-field>
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>{{'USER.ATTR.EMAIL'| translate}}</mat-label>
         <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('USER.ATTR.EMAIL'| translate)} }}" formControlName="email">
-        <mat-icon matSuffix>email</mat-icon>
+        <mat-icon matSuffix class="mr-2">email</mat-icon>
         <mat-error *ngIf="form.controls['email'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('USER.ATTR.EMAIL'| translate)} }}</mat-error>
       </mat-form-field>
       <mat-form-field class="w-100" appearance="outline">
-        <mat-label>Choose a Rol</mat-label>
+        <mat-label>{{'FORM.SELECT_PLACEHOLDER' | translate:{attr:('USER.ATTR.ROL' | translate)} }}</mat-label>
         <mat-select formControlName="rol">
-          <mat-option [value]="USER_ROLES.DEVELOPER">Developer</mat-option>
-          <mat-option [value]="USER_ROLES.ADMIN">Administrator</mat-option>
-          <mat-option [value]="USER_ROLES.COLLABORATOR">Collaborator</mat-option>
+          <mat-option [value]="USER_ROLES.DEVELOPER">{{'ROLES.0' | translate}}</mat-option>
+          <mat-option [value]="USER_ROLES.ADMIN">{{'ROLES.1' | translate}}</mat-option>
+          <mat-option [value]="USER_ROLES.COLLABORATOR">{{'ROLES.2' | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>{{'FORM.SELECT_PLACEHOLDER' | translate:{attr:('USER.ATTR.TITLE' | translate)} }}</mat-label>
+        <mat-select formControlName="title">
+          <mat-option [value]="USER_TITLES.ATTORNEY">{{'TITLES.0' | translate}}</mat-option>
+          <mat-option [value]="USER_TITLES.PARALEGAL">{{'TITLES.1' | translate}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

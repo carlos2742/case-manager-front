@@ -9,7 +9,7 @@
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>{{'USER.ATTR.EMAIL' | translate}}</mat-label>
           <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('USER.ATTR.EMAIL'| translate)} }}" required formControlName="email">
-          <mat-icon matSuffix>email</mat-icon>
+          <mat-icon matSuffix class="mr-2">email</mat-icon>
           <mat-error *ngIf="form.controls['email'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('USER.ATTR.EMAIL'| translate)} }}</mat-error>
         </mat-form-field>
         <mat-form-field class="w-100" appearance="outline">

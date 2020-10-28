@@ -97,14 +97,8 @@ export function reducer(
     }
     case fromClient.CLIENT_ACTION_TYPES.CREATE_CLIENT_SUCCESS: {
       console.log(fromClient.CLIENT_ACTION_TYPES.CREATE_CLIENT_SUCCESS);
-      const items = [...state.entities.items];
-      const createdItem = action.payload;
       return {
         ...state,
-        entities:{
-          ...state.entities,
-          items: items.concat([createdItem]),
-        },
         create:{
           ...state.create,
           ongoing:false,
@@ -136,16 +130,8 @@ export function reducer(
     }
     case fromClient.CLIENT_ACTION_TYPES.UPDATE_CLIENT_SUCCESS: {
       console.log(fromClient.CLIENT_ACTION_TYPES.DELETE_CLIENT_SUCCESS);
-      const items = [...state.entities.items];
-      const updatedItem = action.payload;
-      const index = items.findIndex(item => item.id === updatedItem.id);
-      items.splice(index,1,updatedItem);
       return {
         ...state,
-        entities:{
-          ...state.entities,
-          items: items,
-        },
         update:{
           ...state.create,
           ongoing:false,
@@ -177,14 +163,8 @@ export function reducer(
     }
     case fromClient.CLIENT_ACTION_TYPES.DELETE_CLIENT_SUCCESS: {
       console.log(fromClient.CLIENT_ACTION_TYPES.DELETE_CLIENT_SUCCESS);
-      const items = [...state.entities.items];
-      const deletedItem = action.payload;
       return {
         ...state,
-        entities:{
-          ...state.entities,
-          items: items.filter(item => item.id !== deletedItem.id),
-        },
         delete:{
           ...state.create,
           ongoing:false,

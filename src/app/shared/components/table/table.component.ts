@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {USER_ROLES} from "../../../admin/models/admin.models";
+import {IClient, USER_ROLES} from "../../../admin/models/admin.models";
 import * as AdminStore from "../../../admin/store";
 import {Store} from "@ngrx/store";
 import {Subscription} from "rxjs";
@@ -45,6 +45,34 @@ export class TableComponent implements OnInit{
 
   getLanguageKeyColumn(column){
     return `${this.entity.toUpperCase()}.ATTR.${column.toUpperCase()}`;
+  }
+
+  getColumnValue(column, element){
+    const value = element[column];
+    switch (column) {
+      case 'rol':{
+        return `ROLES.${value}`;
+      }
+      case 'title':{
+        return `TITLES.${value}`;
+      }
+      case 'stage':{
+        return `CASE.STAGES.${value}`;
+      }
+      case 'practiceArea':{
+        return `PRACTICE_AREA.${value}`;
+      }
+      case 'billingMethod':{
+        return `BILLING.METHODS.${value}`;
+      }
+      case 'client':{
+        const client: IClient = value;
+        return `${client.firstName} ${client.lastName}`;
+      }
+      default:{
+        return element[column];
+      }
+    }
   }
 
 }

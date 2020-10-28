@@ -1,20 +1,7 @@
 import { Injectable } from '@angular/core';
 import {GraphqlService} from "../../../shared/services/graphql/graphql.service";
 import gql from "graphql-tag";
-import {map} from "rxjs/operators";
-import {DocumentNode} from "graphql";
 import {BaseService} from "../base.service";
-
-enum ENTITY {
-  USER = 'user',
-  USERS = 'users',
-}
-
-enum MUTATION{
-  REGISTER_USER = 'registerUser',
-  UPDATE_USER = 'updateUser',
-  DELETE_USER = 'removeUser'
-}
 
 @Injectable({
   providedIn: 'root'
@@ -23,33 +10,40 @@ export class UserService extends BaseService{
 
   constructor(private graphql: GraphqlService) {
     super();
+
+    this._entityName = 'user';
+    this._entityListName = 'users';
+
+    this._mutationCreateName = 'registerUser';
+    this._mutationUpdateName = 'updateUser';
+    this._mutationDeleteName = 'removeUser';
   }
 
-  get all(){
-    this.query = gql`
-          {
-            users{
-              id
-              name
-              email
-              rol
-            }
-          }`;
-    return this.graphql.query(this.query).pipe(this.extractQueryResponseData(ENTITY.USERS));
-  }
-
-  public register(payload){
-    this.mutation = gql`
+  protected _initializeQM(){
+    super._initializeQM();
+    this._getEntityAllQuery = gql`
+             {
+              users{
+                id
+                name
+                email
+                rol
+                title
+              }
+            }`;
+    this._createMutation = gql`
           mutation registerUser(
             $name: String!,
             $email: String!,
             $rol: Int!
+            $title: Int!
             $password: String!,
           ) {
             registerUser(input: {
               name: $name,
               email: $email,
-              rol: $rol
+              rol: $rol,
+              title: $title
               password: $password,
             }) {
               user {
@@ -57,16 +51,13 @@ export class UserService extends BaseService{
                 name
                 email
                 rol
+                title
               }
               success
               errors
             }
           }`;
-    return this.graphql.mutate(this.mutation,payload).pipe(this.extractMutationResponseData(MUTATION.REGISTER_USER, ENTITY.USER));
-  }
-
-  public delete(id){
-    this.mutation = gql`
+    this._deleteMutation = gql`
           mutation removeUser($id: ID!) {
             removeUser(input: {id: $id}) {
               user {
@@ -76,34 +67,54 @@ export class UserService extends BaseService{
               errors
             }
           }`;
-    return this.graphql.mutate(this.mutation,{id: id}).pipe(this.extractMutationResponseData(MUTATION.DELETE_USER, ENTITY.USER));
-  }
-
-  public update(payload){
-    this.mutation = gql`
+    this._updateMutation = gql`
           mutation updateUser(
             $id: ID!
             $email: String!
             $name: String!
             $rol: Int!
+            $title: Int!
           ) {
             updateUser(input: {
               id: $id
               email: $email
               name: $name
               rol: $rol
+              title: $title
             }) {
               user {
                 id
                 name
                 email
                 rol
+                title
               }
               success
               errors
             }
           }`;
-    return this.graphql.mutate(this.mutation,payload).pipe(this.extractMutationResponseData(MUTATION.UPDATE_USER, ENTITY.USER));
+  }
+
+  get all(){
+    return this.graphql.query(this._getEntityAllQuery)
+      .pipe(this._extractQueryResponseData(this._entityListName));
+  }
+
+  public register(payload){
+    const update = this._afterCreate();
+    return this.graphql.mutate(this._createMutation, payload, update)
+      .pipe(this._extractMutationResponseData(this._mutationCreateName, this._entityName));
+  }
+
+  public delete(id){
+    const update = this._afterDelete();
+    return this.graphql.mutate(this._deleteMutation,{id: id}, update)
+      .pipe(this._extractMutationResponseData(this._mutationDeleteName, this._entityName));
+  }
+
+  public update(payload){
+    return this.graphql.mutate(this._updateMutation,payload)
+      .pipe(this._extractMutationResponseData(this._mutationUpdateName, this._entityName));
   }
 
 }

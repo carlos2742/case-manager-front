@@ -56,25 +56,25 @@
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'CLIENT.ATTR.FIRSTNAME'| translate}}</mat-label>
             <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.FIRSTNAME'| translate)} }}" formControlName="first_name" required>
-            <mat-icon matSuffix>text_fields</mat-icon>
+            <mat-icon matSuffix class="mr-2">text_fields</mat-icon>
             <mat-error *ngIf="requiredForm.controls['first_name'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.ATTR.FIRSTNAME'| translate)} }}</mat-error>
           </mat-form-field>
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'CLIENT.ATTR.EMAIL'| translate}}</mat-label>
             <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.EMAIL'| translate)} }}" formControlName="email" required>
-            <mat-icon matSuffix>email</mat-icon>
+            <mat-icon matSuffix class="mr-2">email</mat-icon>
             <mat-error *ngIf="requiredForm.controls['email'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.ATTR.EMAIL'| translate)} }}</mat-error>
           </mat-form-field>
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'CLIENT.ATTR.PHONENUMBER'| translate}}</mat-label>
             <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.PHONENUMBER'| translate)} }}" formControlName="phone_number" required>
-            <mat-icon matSuffix>phone</mat-icon>
+            <mat-icon matSuffix class="mr-2">phone</mat-icon>
             <mat-error *ngIf="requiredForm.controls['phone_number'].invalid">{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.PHONENUMBER'| translate)} }}</mat-error>
           </mat-form-field>
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'CLIENT.ATTR.EMERGENCYCONTACT'| translate}}</mat-label>
             <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.EMERGENCYCONTACT'| translate)} }}" formControlName="emergency_contact" required>
-            <mat-icon matSuffix>phone</mat-icon>
+            <mat-icon matSuffix class="mr-2">phone</mat-icon>
             <mat-error *ngIf="requiredForm.controls['emergency_contact'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.ATTR.EMERGENCYCONTACT'| translate)} }}</mat-error>
           </mat-form-field>
         </form>
@@ -85,7 +85,7 @@
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'CLIENT.ATTR.LASTNAME'| translate}}</mat-label>
             <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.LASTNAME'| translate)} }}" formControlName="last_name">
-            <mat-icon matSuffix>text_fields</mat-icon>
+            <mat-icon matSuffix class="mr-2">text_fields</mat-icon>
             <mat-error *ngIf="optionalForm.controls['last_name'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.ATTR.LASTNAME'| translate)} }}</mat-error>
           </mat-form-field>
           <mat-form-field class="w-100" appearance="outline">
@@ -97,19 +97,19 @@
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'CLIENT.ATTR.SSN'| translate}}</mat-label>
             <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.SSN'| translate)} }}" formControlName="ssn">
-            <mat-icon matSuffix>perm_identity</mat-icon>
+            <mat-icon matSuffix class="mr-2">perm_identity</mat-icon>
             <mat-error *ngIf="optionalForm.controls['ssn'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.ATTR.SSN'| translate)} }}</mat-error>
           </mat-form-field>
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'CLIENT.ATTR.ARN'| translate}}</mat-label>
             <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.ARN'| translate)} }}" formControlName="arn">
-            <mat-icon matSuffix>perm_identity</mat-icon>
+            <mat-icon matSuffix class="mr-2">perm_identity</mat-icon>
             <mat-error *ngIf="optionalForm.controls['arn'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.ATTR.ARN'| translate)} }}</mat-error>
           </mat-form-field>
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>{{'CLIENT.ATTR.ADDRESS'| translate}}</mat-label>
             <input matInput placeholder="{{'FORM.PLACEHOLDER' | translate: {attr: ('CLIENT.ATTR.ADDRESS'| translate)} }}" formControlName="address">
-            <mat-icon matSuffix>location_on</mat-icon>
+            <mat-icon matSuffix class="mr-2">location_on</mat-icon>
             <mat-error *ngIf="optionalForm.controls['address'].invalid">{{'FORM.ERROR.REQUIRED' | translate: {attr: ('CLIENT.ATTR.ADDRESS'| translate)} }}</mat-error>
           </mat-form-field>
         </form>

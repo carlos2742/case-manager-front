@@ -1,12 +1,10 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {DIALOG_ACTION_TYPE} from "../client/client.component";
 import * as AdminStore from '../../store';
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
-import {USER_ROLES} from "../../models/admin.models";
-
+import {USER_ROLES, USER_TITLES, DIALOG_ACTION_TYPE} from "../../models/admin.models";
 
 @Component({
   selector: 'app-user',
@@ -24,6 +22,7 @@ export class UserComponent implements OnInit {
 
   public DIALOG_ACTION_TYPE;
   public USER_ROLES;
+  public USER_TITLES;
 
   public dialogTitle: string;
   public dialogActionType: DIALOG_ACTION_TYPE;
@@ -33,17 +32,19 @@ export class UserComponent implements OnInit {
   constructor(private store: Store<AdminStore.AdminState>, public dialog: MatDialog, private formBuilder: FormBuilder) {
     this.DIALOG_ACTION_TYPE = DIALOG_ACTION_TYPE;
     this.USER_ROLES = USER_ROLES;
+    this.USER_TITLES = USER_TITLES;
     this.displayedColumns = [
       'name',
       'email',
       'rol',
+      'title',
       'options'];
     this.data$ = this.store.select(AdminStore.allUsers);
   }
 
   ngOnInit(): void {
     this.store.dispatch(new AdminStore.LoadUsers({}));
-    this.initializeForm();
+    this._initializeForm();
   }
 
   openCreateDialog(){
@@ -58,7 +59,7 @@ export class UserComponent implements OnInit {
     this.dialogTitle = 'Update User';
     this.dialogMainActionName = 'ACTIONS.UPDATE';
     this.dialogActionType = DIALOG_ACTION_TYPE.EDIT;
-    this.updateForm(object);
+    this._updateForm(object);
     this.dialogMainAction = () => this.updateUser(object);
     this.openDialog();
   }
@@ -94,23 +95,25 @@ export class UserComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.form.reset();
-      this.initializeForm();
+      this._initializeForm();
     });
   }
 
-  private initializeForm(){
+  private _initializeForm(){
     this.form = this.formBuilder.group({
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       rol: new FormControl(USER_ROLES.COLLABORATOR, [Validators.required]),
+      title: new FormControl(USER_TITLES.PARALEGAL, [Validators.required]),
       password: new FormControl('1234567890', [Validators.required])
     });
   }
 
-  private updateForm(element){
+  private _updateForm(element){
     this.form.controls['name'].setValue(element['name']);
     this.form.controls['email'].setValue(element['email']);
     this.form.controls['rol'].setValue(element['rol']);
+    this.form.controls['title'].setValue(element['title']);
   }
 
 }

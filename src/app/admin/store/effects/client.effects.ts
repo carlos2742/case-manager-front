@@ -19,7 +19,7 @@ export class ClientEffects extends Utils{
       ofType(fromClient.CLIENT_ACTION_TYPES.LOAD_CLIENTS),
       map((action: fromClient.ClientActions) => action.payload),
       switchMap((payload) => {
-        return this._client.all.pipe(
+        return this._client.list.pipe(
           map(response => new fromClient.LoadClientsSuccess(response)),
           catchError(errors => {
             const error = this.extractErrorMessage(errors);
