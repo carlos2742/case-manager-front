@@ -37,6 +37,11 @@
     "1": "Administrador",
     "2": "Colaborador"
   },
+  "TITLES": {
+    "0": "Abogado",
+    "1": "Asistente Legal",
+    "2": "Personal"
+  },
   "USER": {
     "LABEL": {
       "SINGULAR": "Usuario",
@@ -46,7 +51,8 @@
       "NAME": "Nombre",
       "EMAIL": "Correo",
       "PASSWORD": "Contraseña",
-      "ROL": "Rol"
+      "ROL": "Rol",
+      "TITLE": "Título"
     },
     "NOTIFICATIONS": {
       "SUCCESS": {
@@ -89,13 +95,15 @@
     "CLOSE": "Cerrar",
     "SIGN_IN": "Iniciar Sesión",
     "SIGN_OUT": "Salir",
+    "ACCOUNT": "Cuenta",
     "NEXT": "Siguente"
   },
   "FORM": {
     "ERROR": {
       "REQUIRED": "{{attr}} requerido"
     },
-    "PLACEHOLDER": "Ingrese {{attr}}"
+    "PLACEHOLDER": "Ingrese {{attr}}",
+    "SELECT_PLACEHOLDER": "Seleccione un {{attr}}"
   },
   "MESSAGE": {
     "DELETE": "Desea eliminar el {{entity}} ?"

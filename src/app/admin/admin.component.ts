@@ -113,6 +113,17 @@ export class AdminComponent implements OnInit, OnDestroy {
             ]
           },
           {
+            icon: 'business_center',
+            name: 'CASE.LABEL.PLURAL',
+            url: 'cases',
+            disabled: false,
+            selected: this._isSelected('cases'),
+            allowed:[
+              USER_ROLES.ADMIN,
+              USER_ROLES.DEVELOPER
+            ]
+          },
+          {
             icon: 'supervisor_account',
             name: 'USER.LABEL.PLURAL',
             url: 'users',

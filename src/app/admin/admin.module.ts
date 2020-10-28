@@ -17,6 +17,7 @@ import { reducers, effects } from './store';
 import { IsAllowDirective } from './directives/is-allow/is-allow.directive';
 import { NotFoundComponent } from '../admin/components/not-found/not-found.component';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import { CaseComponent } from './components/case/case.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { UnauthorizedComponent } from './components/unauthorized/unauthorized.co
     UserComponent,
     IsAllowDirective,
     NotFoundComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    CaseComponent
   ],
   imports: [
     CommonModule,

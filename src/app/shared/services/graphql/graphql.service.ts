@@ -20,10 +20,11 @@ export class GraphqlService {
       }).valueChanges
   }
 
-  public mutate(mutation, variables = {}):Observable<FetchResult<unknown>> {
+  public mutate(mutation, variables = {}, update = null):Observable<FetchResult<unknown>> {
     return this.apollo.mutate({
       mutation: mutation,
-      variables: variables
+      variables: variables,
+      update: update
     })
   }
 

@@ -5,13 +5,7 @@ import {Store} from "@ngrx/store";
 import * as AdminStore from '../../store';
 import {Observable, Subscription} from "rxjs";
 import {MatStepper} from "@angular/material/stepper";
-import {USER_ROLES} from "../../../admin/models/admin.models";
-
-export enum DIALOG_ACTION_TYPE{
-  CREATE,
-  EDIT,
-  REMOVE
-}
+import {USER_ROLES, DIALOG_ACTION_TYPE} from "../../../admin/models/admin.models";
 
 @Component({
   selector: 'app-client',

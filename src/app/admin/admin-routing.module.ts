@@ -7,6 +7,7 @@ import {UserComponent} from "./components/user/user.component";
 import {GuardService} from "./services/auth/guard.service";
 import {USER_ROLES} from "./models/admin.models";
 import {UnauthorizedComponent} from "./components/unauthorized/unauthorized.component";
+import {CaseComponent} from "./components/case/case.component";
 
 
 const routes: Routes = [
@@ -26,6 +27,14 @@ const routes: Routes = [
       {
         path: 'users',
         component: UserComponent,
+        canActivate: [GuardService],
+        data: {
+          roles: [USER_ROLES.ADMIN, USER_ROLES.DEVELOPER]
+        }
+      },
+      {
+        path: 'cases',
+        component: CaseComponent,
         canActivate: [GuardService],
         data: {
           roles: [USER_ROLES.ADMIN, USER_ROLES.DEVELOPER]

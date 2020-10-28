@@ -23,6 +23,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { NotificationComponent } from './components/notification/notification.component';
 import {NotificationService} from "./services/notification/notification.service";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -74,6 +75,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatNativeDateModule,
     MatStepperModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
     TranslateModule
   ],
   providers:[
